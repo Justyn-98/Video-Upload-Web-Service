@@ -1,17 +1,17 @@
 {
   "format": 1,
   "restore": {
-    "C:\\Users\\Justyn\\Source\\Repos\\pipsi-semestr-4-projekt\\API\\API.csproj": {}
+    "C:\\Users\\Justyn\\source\\repos\\pipsi-semestr-4-projekt\\API\\API.csproj": {}
   },
   "projects": {
-    "C:\\Users\\Justyn\\Source\\Repos\\pipsi-semestr-4-projekt\\API\\API.csproj": {
+    "C:\\Users\\Justyn\\source\\repos\\pipsi-semestr-4-projekt\\API\\API.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "C:\\Users\\Justyn\\Source\\Repos\\pipsi-semestr-4-projekt\\API\\API.csproj",
+        "projectUniqueName": "C:\\Users\\Justyn\\source\\repos\\pipsi-semestr-4-projekt\\API\\API.csproj",
         "projectName": "API",
-        "projectPath": "C:\\Users\\Justyn\\Source\\Repos\\pipsi-semestr-4-projekt\\API\\API.csproj",
+        "projectPath": "C:\\Users\\Justyn\\source\\repos\\pipsi-semestr-4-projekt\\API\\API.csproj",
         "packagesPath": "C:\\Users\\Justyn\\.nuget\\packages\\",
-        "outputPath": "C:\\Users\\Justyn\\Source\\Repos\\pipsi-semestr-4-projekt\\API\\obj\\",
+        "outputPath": "C:\\Users\\Justyn\\source\\repos\\pipsi-semestr-4-projekt\\API\\obj\\",
         "projectStyle": "PackageReference",
         "configFilePaths": [
           "C:\\Users\\Justyn\\AppData\\Roaming\\NuGet\\NuGet.Config",
