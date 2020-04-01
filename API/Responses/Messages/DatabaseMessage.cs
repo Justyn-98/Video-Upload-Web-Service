@@ -21,8 +21,5 @@ namespace API.Responses.Messages
             Content = content;
         }
 
-        
-        public IMessage GetDeafaultMessage() => new DatabaseMessage(DatabaseMessageContent.DEFAULT_MESSAGE);
-           
     }
 }
