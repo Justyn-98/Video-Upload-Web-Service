@@ -10,7 +10,5 @@ namespace API.Responses
         {
             Content = content;
         }
-
-        public IMessage GetDeafaultMessage() => new Message(string.Empty);
     }
 }

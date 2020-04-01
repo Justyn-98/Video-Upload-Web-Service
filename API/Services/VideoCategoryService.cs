@@ -1,6 +1,5 @@
 ﻿using API.DataAccessLayer;
 using API.Models.Tabels;
-using API.Responses.Messages;
 using API.ServiceResponses;
 using API.Services.Interfaces;
 using Microsoft.AspNetCore.Mvc;
@@ -9,7 +8,7 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
-using static API.Responses.Messages.DatabaseMessage;
+using API.Responses;
 
 namespace API.Services
 {
@@ -43,7 +42,7 @@ namespace API.Services
             {
                 if (!VideoCategoryExists(id))
                 {
-                    return ServiceResponse<bool>.Error(new DatabaseMessage(DatabaseMessageContent.RESOURCE_NOT_EXIST));
+                    return ServiceResponse<bool>.Error(new Message("Resource not exist"));
                 }
                 else
                 {
@@ -72,7 +71,7 @@ namespace API.Services
             {
                 if (VideoCategoryExists(videoCategory.Id))
                 {
-                    return ServiceResponse<VideoCategory>.Error(new DatabaseMessage(DatabaseMessageContent.RESOURCE_NOT_EXIST));
+                    return ServiceResponse<VideoCategory>.Error(new Message("Resource exist"));
                 }
                 else
                 {
