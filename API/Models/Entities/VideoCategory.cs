@@ -1,12 +1,14 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
+﻿using System.Collections.Generic;
 
-namespace API.Models.Tabels
+namespace API.Models.Entities
 {
     public class VideoCategory
     {
+        public VideoCategory()
+        {
+            Videos = new HashSet<Video>();
+        }
+
         public string Id { get; set; }
         public string Name { get; set; }
         public ICollection<Video> Videos { get; set; }

@@ -1,17 +1,17 @@
-﻿using System;
-using System.Collections.Generic;
-using System.ComponentModel.DataAnnotations;
-using System.Linq;
-using System.Threading.Tasks;
+﻿using System.Collections.Generic;
 
-namespace API.Models.Tabels
+namespace API.Models.Entities
 {
     public class PlayList
     {
-        [Key]
+        public PlayList()
+        {
+            VideosOnPlayList = new HashSet<VideoOnPlayList>();
+        }
         public string Id { get; set; }
         public string Name { get; set; }
-        public User _User { get; set; }
+        public string UserId { get; set; }
+        public User User { get; set; }
         public ICollection<VideoOnPlayList> VideosOnPlayList { get; set; }
     }
 }
