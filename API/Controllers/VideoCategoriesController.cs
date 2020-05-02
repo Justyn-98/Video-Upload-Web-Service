@@ -1,12 +1,15 @@
 ﻿using System.Collections.Generic;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
-using API.Models.Tabels;
+using API.Models.Entities;
+using API.Responses;
+using API.Responses.Messages;
 using API.Services.Interfaces;
+using Microsoft.AspNetCore.Http;
 
 namespace API.Controllers
 {
-    [Route("[controller]")]
+    [Route("api/[controller]")]
     [ApiController]
     public class VideoCategoriesController : ControllerBase
     {
@@ -17,59 +20,70 @@ namespace API.Controllers
             _service = service;
         }
 
+
         // GET: api/VideoCategories
         [HttpGet]
         public async Task<ActionResult<List<VideoCategory>>> GetAll()
             => await _service.GetVideoCategoriesList();
 
+
         // GET: api/VideoCategories/id
         [HttpGet("{id}")]
+        [ProducesResponseType(StatusCodes.Status200OK)]
+        [ProducesResponseType(StatusCodes.Status404NotFound)]
         public async Task<ActionResult<VideoCategory>> GetById(string id)
         {
             var response = await _service.VideoCategoryFindResponse(id);
 
             if (!response.Success)
-                return NotFound();
+                return NotFound(response.Message);
 
             return response.Data;
         }
 
+
         // PUT: api/VideoCategories/5
         [HttpPut("{id}")]
-        public async Task<IActionResult> Edit(string id, VideoCategory videoCategory)
+        [ProducesResponseType(StatusCodes.Status200OK)]
+        [ProducesResponseType(StatusCodes.Status404NotFound)]
+        public async Task<ActionResult> Edit(string id, VideoCategory videoCategory)
         {
             var response = await _service.VideoCategoryUpdateResponse(id, videoCategory);
 
             if (!response.Success)
-                return NotFound();
+                return NotFound(response.Message);
 
-            return Ok();
+            return Ok(response.Message);
         }
+
 
         // POST: api/VideoCategories
         [HttpPost]
+        [ProducesResponseType(StatusCodes.Status204NoContent)]
+        [ProducesResponseType(StatusCodes.Status404NotFound)]
         public async Task<ActionResult<VideoCategory>> Create(VideoCategory videoCategory)
         {
             var response = await _service.CreateVideoCategoryResponse(videoCategory);
 
             if (!response.Success)
-                return Conflict();
+                return Conflict(response.Message);
 
             return CreatedAtAction("GetById", new { id = response.Data.Id }, response.Data);
         }
 
+
         // DELETE: api/VideoCategories/5
         [HttpDelete("{id}")]
+        [ProducesResponseType(StatusCodes.Status204NoContent)]
+        [ProducesResponseType(StatusCodes.Status404NotFound)]
         public async Task<ActionResult<VideoCategory>> Delete(string id)
         {
-            var response = await _service.VideoCategoryFindResponse(id);
+            var response = await _service.DeleteVideoCategory(id);
 
             if (!response.Success)
-                return NotFound();
-
-            await _service.DeleteVideoCategory(response.Data);
-
-            return response.Data;
+                return NotFound(response.Message);
+            
+            return NoContent();
         }
 
     }

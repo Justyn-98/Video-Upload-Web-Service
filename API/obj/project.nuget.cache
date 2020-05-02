@@ -1,8 +1,8 @@
 {
   "version": 2,
-  "dgSpecHash": "ROkjgI4SUEHo4rRd5CC2AeIrjy6Xdr3CPTOH+uFjOJbufbIbVQYwT5sYmXF8RDcqwQP+56vlde/y8q1/rSGTJQ==",
+  "dgSpecHash": "CnS2fClhPSSRsntxT12lCEkHbonithsUMXad5AvLSM6CKdlcXJjYp8HAPkf1NL3X4WOanuhRclQMZSVqWHK71w==",
   "success": true,
-  "projectFilePath": "C:\\Users\\Justyn\\source\\repos\\pipsi-semestr-4-projekt\\API\\API.csproj",
+  "projectFilePath": "C:\\Users\\Justyn\\source\\repos\\PIPSI-Semestr-4-Projekt\\API\\API.csproj",
   "expectedPackageFiles": [
     "C:\\Users\\Justyn\\.nuget\\packages\\microsoft.aspnetcore.cryptography.internal\\3.1.0\\microsoft.aspnetcore.cryptography.internal.3.1.0.nupkg.sha512",
     "C:\\Users\\Justyn\\.nuget\\packages\\microsoft.aspnetcore.cryptography.keyderivation\\3.1.0\\microsoft.aspnetcore.cryptography.keyderivation.3.1.0.nupkg.sha512",

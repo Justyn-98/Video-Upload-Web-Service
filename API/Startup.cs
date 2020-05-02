@@ -1,5 +1,5 @@
 using API.DataAccessLayer;
-using API.Models.Tabels;
+using API.Models.Entities;
 using API.Services;
 using API.Services.Interfaces;
 using Microsoft.AspNetCore.Builder;
@@ -32,6 +32,9 @@ namespace API
             services.AddIdentity<User, IdentityRole>()
                 .AddEntityFrameworkStores<ApplicationDbContext>();
 
+            services.AddAuthentication();
+            services.AddAuthorization();
+
             services.AddScoped<IVideoCategoryService, VideoCategoryService>();
         }
 
@@ -48,6 +51,7 @@ namespace API
             app.UseRouting();
 
             app.UseAuthorization();
+            app.UseAuthentication();
 
             app.UseEndpoints(endpoints =>
             {

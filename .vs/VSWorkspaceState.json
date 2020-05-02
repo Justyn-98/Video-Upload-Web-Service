@@ -1,8 +1,10 @@
 {
   "ExpandedNodes": [
     "",
-    "\\API"
+    "\\API",
+    "\\API\\Controllers",
+    "\\API\\Services"
   ],
-  "SelectedNode": "\\API",
+  "SelectedNode": "\\API\\Services\\VideoCategoryService.cs",
   "PreviewInSolutionExplorer": false
 }

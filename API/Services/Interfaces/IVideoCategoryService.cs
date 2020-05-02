@@ -1,4 +1,4 @@
-﻿using API.Models.Tabels;
+﻿using API.Models.Entities;
 using API.ServiceResponses;
 using Microsoft.AspNetCore.Mvc;
 using System;
@@ -12,8 +12,8 @@ namespace API.Services.Interfaces
     {
         public Task<ActionResult<List<VideoCategory>>> GetVideoCategoriesList();
         public Task<ServiceResponse<VideoCategory>> VideoCategoryFindResponse(string id);
-        public Task DeleteVideoCategory(VideoCategory videoCategory);
-        public Task<ServiceResponse<bool>> VideoCategoryUpdateResponse(string id, VideoCategory videoCategory);
+        public Task<ServiceResponse<bool>> DeleteVideoCategory(string id);
+        public Task<ServiceResponse<int>> VideoCategoryUpdateResponse(string id, VideoCategory videoCategory);
         public Task<ServiceResponse<VideoCategory>> CreateVideoCategoryResponse(VideoCategory videoCategory);
 
     }

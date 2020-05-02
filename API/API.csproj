@@ -1,8 +1,21 @@
-<Project Sdk="Microsoft.NET.Sdk.Web">
+﻿<Project Sdk="Microsoft.NET.Sdk.Web">
 
   <PropertyGroup>
     <TargetFramework>netcoreapp3.1</TargetFramework>
   </PropertyGroup>
+
+  <ItemGroup>
+    <Compile Remove="Migrations\20200401175732_init.cs" />
+    <Compile Remove="Migrations\20200401175732_init.Designer.cs" />
+    <Compile Remove="Migrations\20200426165503_init.cs" />
+    <Compile Remove="Migrations\20200426165503_init.Designer.cs" />
+    <Compile Remove="Migrations\20200501174002_init.cs" />
+    <Compile Remove="Migrations\20200501174002_init.Designer.cs" />
+    <Compile Remove="Migrations\20200502181928_Init.cs" />
+    <Compile Remove="Migrations\20200502181928_Init.Designer.cs" />
+    <Compile Remove="Migrations\20200502183159_Init.cs" />
+    <Compile Remove="Migrations\20200502183159_Init.Designer.cs" />
+  </ItemGroup>
 
   <ItemGroup>
     <PackageReference Include="Microsoft.AspNetCore.Identity.EntityFrameworkCore" Version="3.1.0" />
