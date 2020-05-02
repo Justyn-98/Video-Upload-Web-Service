@@ -19,90 +19,182 @@ namespace API.Migrations
                 .HasAnnotation("Relational:MaxIdentifierLength", 128)
                 .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
 
-            modelBuilder.Entity("API.Models.Tabels.Comment", b =>
+            modelBuilder.Entity("API.Models.Entities.Comment", b =>
                 {
                     b.Property<string>("Id")
                         .HasColumnType("nvarchar(450)");
 
                     b.Property<string>("Content")
-                        .HasColumnType("nvarchar(max)");
+                        .IsRequired()
+                        .HasColumnType("nvarchar(2000)")
+                        .HasMaxLength(2000)
+                        .IsUnicode(true);
 
-                    b.Property<string>("_UserId")
+                    b.Property<DateTime>("DateOfCreate")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("datetime2")
+                        .HasDefaultValue(new DateTime(2020, 5, 2, 20, 36, 3, 682, DateTimeKind.Local).AddTicks(9304));
+
+                    b.Property<int>("Likes")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int")
+                        .HasDefaultValue(0);
+
+                    b.Property<string>("UserId")
                         .HasColumnType("nvarchar(450)");
 
-                    b.Property<string>("_VideoId")
+                    b.Property<string>("VideoId")
                         .HasColumnType("nvarchar(450)");
 
                     b.HasKey("Id");
 
-                    b.HasIndex("_UserId");
+                    b.HasIndex("UserId");
 
-                    b.HasIndex("_VideoId");
+                    b.HasIndex("VideoId");
 
                     b.ToTable("Comments");
                 });
 
-            modelBuilder.Entity("API.Models.Tabels.PlayList", b =>
+            modelBuilder.Entity("API.Models.Entities.PlayList", b =>
                 {
                     b.Property<string>("Id")
                         .HasColumnType("nvarchar(450)");
 
                     b.Property<string>("Name")
-                        .HasColumnType("nvarchar(max)");
+                        .IsRequired()
+                        .HasColumnType("nvarchar(50)")
+                        .HasMaxLength(50)
+                        .IsUnicode(true);
 
-                    b.Property<string>("_UserId")
+                    b.Property<string>("UserId")
                         .HasColumnType("nvarchar(450)");
 
                     b.HasKey("Id");
 
-                    b.HasIndex("_UserId");
+                    b.HasIndex("UserId");
 
                     b.ToTable("PlayLists");
                 });
 
-            modelBuilder.Entity("API.Models.Tabels.Video", b =>
+            modelBuilder.Entity("API.Models.Entities.SocialBoardPost", b =>
                 {
                     b.Property<string>("Id")
                         .HasColumnType("nvarchar(450)");
 
-                    b.Property<string>("Description")
+                    b.Property<string>("Content")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(2000)")
+                        .HasMaxLength(2000)
+                        .IsUnicode(true);
+
+                    b.Property<DateTime>("DateOfCreate")
+                        .HasColumnType("datetime2");
+
+                    b.Property<int>("Likes")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int")
+                        .HasDefaultValue(0);
+
+                    b.Property<string>("Photo")
                         .HasColumnType("nvarchar(max)");
 
-                    b.Property<string>("Name")
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<string>("UrlAdress")
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<string>("_UserId")
-                        .HasColumnType("nvarchar(450)");
-
-                    b.Property<string>("_VideoCategoryId")
+                    b.Property<string>("UserId")
                         .HasColumnType("nvarchar(450)");
 
                     b.HasKey("Id");
 
-                    b.HasIndex("_UserId");
+                    b.HasIndex("UserId");
 
-                    b.HasIndex("_VideoCategoryId");
+                    b.ToTable("Posts");
+                });
+
+            modelBuilder.Entity("API.Models.Entities.Subscription", b =>
+                {
+                    b.Property<string>("SubscriberId")
+                        .HasColumnType("nvarchar(450)");
+
+                    b.Property<string>("ChanelAuthorId")
+                        .HasColumnType("nvarchar(450)");
+
+                    b.Property<DateTime>("DateOfCreateSubscription")
+                        .HasColumnType("datetime2");
+
+                    b.HasKey("SubscriberId", "ChanelAuthorId");
+
+                    b.HasIndex("ChanelAuthorId");
+
+                    b.ToTable("Subscriptions");
+                });
+
+            modelBuilder.Entity("API.Models.Entities.Video", b =>
+                {
+                    b.Property<string>("Id")
+                        .HasColumnType("nvarchar(450)");
+
+                    b.Property<DateTime>("DateOfCreate")
+                        .HasColumnType("datetime2");
+
+                    b.Property<string>("Description")
+                        .HasColumnType("nvarchar(max)")
+                        .HasMaxLength(5000)
+                        .IsUnicode(true);
+
+                    b.Property<string>("FilePath")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<bool>("IsActive")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("bit")
+                        .HasDefaultValue(true);
+
+                    b.Property<int>("Likes")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int")
+                        .HasDefaultValue(0);
+
+                    b.Property<string>("Name")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(100)")
+                        .HasMaxLength(100)
+                        .IsUnicode(true);
+
+                    b.Property<string>("UrlAddress")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("UserId")
+                        .HasColumnType("nvarchar(450)");
+
+                    b.Property<string>("VideoCategoryId")
+                        .HasColumnType("nvarchar(450)");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("UserId");
+
+                    b.HasIndex("VideoCategoryId");
 
                     b.ToTable("Videos");
                 });
 
-            modelBuilder.Entity("API.Models.Tabels.VideoCategory", b =>
+            modelBuilder.Entity("API.Models.Entities.VideoCategory", b =>
                 {
                     b.Property<string>("Id")
                         .HasColumnType("nvarchar(450)");
 
                     b.Property<string>("Name")
-                        .HasColumnType("nvarchar(max)");
+                        .IsRequired()
+                        .HasColumnType("nvarchar(50)")
+                        .HasMaxLength(50)
+                        .IsUnicode(true);
 
                     b.HasKey("Id");
+
+                    b.HasAlternateKey("Name");
 
                     b.ToTable("VideoCategories");
                 });
 
-            modelBuilder.Entity("API.Models.Tabels.VideoOnPlayList", b =>
+            modelBuilder.Entity("API.Models.Entities.VideoOnPlayList", b =>
                 {
                     b.Property<string>("VideoId")
                         .HasColumnType("nvarchar(450)");
@@ -114,7 +206,7 @@ namespace API.Migrations
 
                     b.HasIndex("PlayListId");
 
-                    b.ToTable("VideosOnPlayLists");
+                    b.ToTable("VideoOnPlayList");
                 });
 
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityRole", b =>
@@ -319,51 +411,81 @@ namespace API.Migrations
                     b.ToTable("AspNetUserTokens");
                 });
 
-            modelBuilder.Entity("API.Models.Tabels.User", b =>
+            modelBuilder.Entity("API.Models.Entities.User", b =>
                 {
                     b.HasBaseType("Microsoft.AspNetCore.Identity.IdentityUser");
+
+                    b.Property<DateTime>("DateOfCreateAccount")
+                        .HasColumnType("datetime2");
+
+                    b.Property<bool>("IsActive")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("bit")
+                        .HasDefaultValue(true);
 
                     b.HasDiscriminator().HasValue("User");
                 });
 
-            modelBuilder.Entity("API.Models.Tabels.Comment", b =>
+            modelBuilder.Entity("API.Models.Entities.Comment", b =>
                 {
-                    b.HasOne("API.Models.Tabels.User", "_User")
+                    b.HasOne("API.Models.Entities.User", "User")
                         .WithMany("Comments")
-                        .HasForeignKey("_UserId");
+                        .HasForeignKey("UserId");
 
-                    b.HasOne("API.Models.Tabels.Video", "_Video")
+                    b.HasOne("API.Models.Entities.Video", "Video")
                         .WithMany("Comments")
-                        .HasForeignKey("_VideoId");
+                        .HasForeignKey("VideoId");
                 });
 
-            modelBuilder.Entity("API.Models.Tabels.PlayList", b =>
+            modelBuilder.Entity("API.Models.Entities.PlayList", b =>
                 {
-                    b.HasOne("API.Models.Tabels.User", "_User")
+                    b.HasOne("API.Models.Entities.User", "User")
                         .WithMany("PlayLists")
-                        .HasForeignKey("_UserId");
+                        .HasForeignKey("UserId");
                 });
 
-            modelBuilder.Entity("API.Models.Tabels.Video", b =>
+            modelBuilder.Entity("API.Models.Entities.SocialBoardPost", b =>
                 {
-                    b.HasOne("API.Models.Tabels.User", "_User")
-                        .WithMany("Videos")
-                        .HasForeignKey("_UserId");
-
-                    b.HasOne("API.Models.Tabels.VideoCategory", "_VideoCategory")
-                        .WithMany("Videos")
-                        .HasForeignKey("_VideoCategoryId");
+                    b.HasOne("API.Models.Entities.User", "User")
+                        .WithMany("Posts")
+                        .HasForeignKey("UserId");
                 });
 
-            modelBuilder.Entity("API.Models.Tabels.VideoOnPlayList", b =>
+            modelBuilder.Entity("API.Models.Entities.Subscription", b =>
                 {
-                    b.HasOne("API.Models.Tabels.PlayList", "_PlayList")
+                    b.HasOne("API.Models.Entities.User", "ChanelAuthor")
+                        .WithMany("Subscribers")
+                        .HasForeignKey("ChanelAuthorId")
+                        .OnDelete(DeleteBehavior.Restrict)
+                        .IsRequired();
+
+                    b.HasOne("API.Models.Entities.User", "Subscriber")
+                        .WithMany("Subscriptions")
+                        .HasForeignKey("SubscriberId")
+                        .OnDelete(DeleteBehavior.Restrict)
+                        .IsRequired();
+                });
+
+            modelBuilder.Entity("API.Models.Entities.Video", b =>
+                {
+                    b.HasOne("API.Models.Entities.User", "User")
+                        .WithMany("Videos")
+                        .HasForeignKey("UserId");
+
+                    b.HasOne("API.Models.Entities.VideoCategory", "VideoCategory")
+                        .WithMany("Videos")
+                        .HasForeignKey("VideoCategoryId");
+                });
+
+            modelBuilder.Entity("API.Models.Entities.VideoOnPlayList", b =>
+                {
+                    b.HasOne("API.Models.Entities.PlayList", "PlayList")
                         .WithMany("VideosOnPlayList")
                         .HasForeignKey("PlayListId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
-                    b.HasOne("API.Models.Tabels.Video", "_Video")
+                    b.HasOne("API.Models.Entities.Video", "Video")
                         .WithMany("VideoOnPlayLists")
                         .HasForeignKey("VideoId")
                         .OnDelete(DeleteBehavior.Cascade)
