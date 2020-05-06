@@ -2,13 +2,17 @@ using API.DataAccessLayer;
 using API.Models.Entities;
 using API.Services;
 using API.Services.Interfaces;
+using API.Services.UserRolesServices;
+using API.Services.UserRolesServices.Interfaces;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
+using Microsoft.EntityFrameworkCore.Metadata;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
+using System;
 
 namespace API
 {
@@ -36,10 +40,12 @@ namespace API
             services.AddAuthorization();
 
             services.AddScoped<IVideoCategoryService, VideoCategoryService>();
+            services.AddScoped<IRolesCreateService, RolesCreateService>();
+
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
-        public void Configure(IApplicationBuilder app, IWebHostEnvironment env)
+        public void Configure(IApplicationBuilder app, IWebHostEnvironment env, IServiceProvider serviceProvider)
         {
             if (env.IsDevelopment())
             {
@@ -57,6 +63,12 @@ namespace API
             {
                 endpoints.MapControllers();
             });
+
+       
+            var roleService = serviceProvider.GetRequiredService<IRolesCreateService>();
+            roleService.AddRoles();
+
+
         }
     }
 }
