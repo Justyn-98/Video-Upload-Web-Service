@@ -26,12 +26,12 @@ namespace API.Services
             var entity = await Context.VideoCategories.FindAsync(id);
 
             if (entity == null)
-                return ServiceResponse<bool>.Error(false, new Message("Not Found Video Category"));
+                return ServiceResponse<bool>.Error(false, new SingleMessage("Not Found Video Category"));
 
             Context.VideoCategories.Remove(entity);
             await Context.SaveChangesAsync();
 
-            return ServiceResponse<bool>.Ok(new Message("Video Category Deleted"));
+            return ServiceResponse<bool>.Ok(new SingleMessage("Video Category Deleted"));
         }
 
         public async Task<ServiceResponse<int>> VideoCategoryUpdateResponse(string id, VideoCategory videoCategory)
@@ -39,19 +39,19 @@ namespace API.Services
             var entity = await Context.VideoCategories.FindAsync(id);
 
             if (entity == null)
-                return ServiceResponse<int>.Error(new Message("Resource not exist"));
+                return ServiceResponse<int>.Error(new SingleMessage("Resource not exist"));
 
             videoCategory.Id = entity.Id;
             Context.Update(videoCategory);
             var numberOfChanges = await Context.SaveChangesAsync();
                 
-            return ServiceResponse<int>.Ok(numberOfChanges, new Message("Video Category Updated"));
+            return ServiceResponse<int>.Ok(numberOfChanges, new SingleMessage("Video Category Updated"));
         }
 
         public async Task<ServiceResponse<VideoCategory>> VideoCategoryFindResponse(string id)
         {
             var videoCategory = await Context.VideoCategories.FindAsync(id);
-            return videoCategory == null ? ServiceResponse<VideoCategory>.Error(new Message("Not Found Video Category"))
+            return videoCategory == null ? ServiceResponse<VideoCategory>.Error(new SingleMessage("Not Found Video Category"))
                 : ServiceResponse<VideoCategory>.Ok(videoCategory);
         }
 
