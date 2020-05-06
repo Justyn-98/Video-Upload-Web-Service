@@ -28,7 +28,7 @@ namespace API.Services.UserRolesServices
                 var registerUserResult = await _userManager.CreateAsync(admin, password);
 
                 if (registerUserResult.Succeeded)
-                    await _userManager.AddToRoleAsync(admin, "Administrator");
+                    await _userManager.AddToRoleAsync(admin, RolesModel.Admin);
             }
         }
 

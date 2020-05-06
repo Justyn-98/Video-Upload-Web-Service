@@ -29,18 +29,18 @@ namespace API.Services.UserRolesServices
 
         private async Task CreateAdministrator()
         {
-            var hasAdminRole = await _roleManager.RoleExistsAsync("Administrator");
+            var hasAdminRole = await _roleManager.RoleExistsAsync(RolesModel.Admin);
 
             if (!hasAdminRole)
-                await _roleManager.CreateAsync(new IdentityRole("Administrator"));
+                await _roleManager.CreateAsync(new IdentityRole(RolesModel.Admin));
         }
 
         private async Task CreateCustomer()
         {
-            var hasCustomerRole = await _roleManager.RoleExistsAsync("CustomUser");
+            var hasCustomerRole = await _roleManager.RoleExistsAsync(RolesModel.CustomUser));
 
             if (!hasCustomerRole)
-                await _roleManager.CreateAsync(new IdentityRole("CustomUser"));
+                await _roleManager.CreateAsync(new IdentityRole(RolesModel.CustomUser));
         }
 
     }
