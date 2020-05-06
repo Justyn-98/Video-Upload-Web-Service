@@ -41,6 +41,7 @@ namespace API
 
             services.AddScoped<IVideoCategoryService, VideoCategoryService>();
             services.AddScoped<IRolesCreateService, RolesCreateService>();
+            services.AddScoped<IDefaultAdminService, DefaultAdminService>();
 
         }
 
@@ -68,6 +69,8 @@ namespace API
             var roleService = serviceProvider.GetRequiredService<IRolesCreateService>();
             roleService.AddRoles();
 
+            var defaultAdminService = serviceProvider.GetRequiredService<IDefaultAdminService>();
+            defaultAdminService.CreateTestUser();
 
         }
     }

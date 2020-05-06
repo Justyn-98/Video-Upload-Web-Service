@@ -37,7 +37,7 @@ namespace API.Services.UserRolesServices
 
         private async Task CreateCustomer()
         {
-            var hasCustomerRole = await _roleManager.RoleExistsAsync(RolesModel.CustomUser));
+            var hasCustomerRole = await _roleManager.RoleExistsAsync(RolesModel.CustomUser);
 
             if (!hasCustomerRole)
                 await _roleManager.CreateAsync(new IdentityRole(RolesModel.CustomUser));

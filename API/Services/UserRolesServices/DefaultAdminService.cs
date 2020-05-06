@@ -20,15 +20,20 @@ namespace API.Services.UserRolesServices
         {
             _userManager = userManager;
         }
-        public async Task CreateTestUser()
+        public void CreateTestUser()
+        {
+            var result = CreateTestUserResult();
+            result.Wait();
+        }
+        private async Task CreateTestUserResult()
         {
             if ( await TestUserNotExist())
             {
                 var admin = new User() { Id = "1", UserName = email, Email = email };
                 var registerUserResult = await _userManager.CreateAsync(admin, password);
-
+            
                 if (registerUserResult.Succeeded)
-                    await _userManager.AddToRoleAsync(admin, RolesModel.Admin);
+                    await _userManager.AddToRoleAsync(admin, RolesModel.Admin);   
             }
         }
 

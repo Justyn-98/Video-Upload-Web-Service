@@ -2,12 +2,9 @@
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
 using API.Models.Entities;
-using API.Responses;
-using API.Responses.Messages;
 using API.Services.Interfaces;
 using Microsoft.AspNetCore.Http;
-using Microsoft.AspNetCore.Authorization;
-using Microsoft.AspNetCore.Identity;
+
 
 namespace API.Controllers
 {
@@ -45,7 +42,6 @@ namespace API.Controllers
 
 
         // PUT: api/VideoCategories/5
-        [Authorize(Roles = )]
         [HttpPut("{id}")]
         [ProducesResponseType(StatusCodes.Status200OK)]
         [ProducesResponseType(StatusCodes.Status404NotFound)]
