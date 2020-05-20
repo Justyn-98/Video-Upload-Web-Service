@@ -83,15 +83,17 @@ namespace API
 
             app.UseHttpsRedirection();
 
+            app.UseAuthentication();
+
             app.UseRouting();
 
             app.UseAuthorization();
-            app.UseAuthentication();
 
             app.UseEndpoints(endpoints =>
             {
                 endpoints.MapControllers();
             });
+
         }
     }
 }
