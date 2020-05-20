@@ -10,6 +10,8 @@ namespace API.Services.Interfaces
     public interface IAccountService
     {
         Task<ServiceResponse<bool>> RegisterUserResponse(RegisterModel model);
+        Task<ServiceResponse<string>> AuthenticateUserResponse(LoginModel model);
+
 
     }
 }
