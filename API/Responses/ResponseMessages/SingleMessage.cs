@@ -1,12 +1,13 @@
 ﻿using API.Responses.Messages;
+using System.Collections.Generic;
 
 namespace API.Responses
 {
-    public class Message : IMessage
+    public class SingleMessage : IMessage
     {
         public string Content { get; set; }
 
-        public Message(string content)
+        public SingleMessage(string content)
         {
             Content = content;
         }

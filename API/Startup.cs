@@ -39,6 +39,7 @@ namespace API
             services.AddAuthentication();
             services.AddAuthorization();
 
+            services.AddScoped<IAccountService, AccountService>();
             services.AddScoped<IVideoCategoryService, VideoCategoryService>();
             services.AddScoped<IRolesCreateService, RolesCreateService>();
             services.AddScoped<IDefaultAdminService, DefaultAdminService>();
