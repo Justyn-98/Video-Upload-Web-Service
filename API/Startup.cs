@@ -7,6 +7,7 @@ using API.Services.UserRolesServices.Interfaces;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
+using Microsoft.AspNetCore.Http.Features;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Metadata;
@@ -15,6 +16,7 @@ using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 using Microsoft.IdentityModel.Tokens;
 using System;
+using System.Numerics;
 using System.Text;
 
 namespace API
@@ -74,6 +76,7 @@ namespace API
             services.AddScoped<IRolesCreateService, RolesCreateService>();
             services.AddScoped<IDefaultAdminService, DefaultAdminService>();
             services.AddScoped<IAccountManagementService, AccountManagementService>();
+            services.AddScoped<IVideosService, VideosService>();
 
 
         }
@@ -89,6 +92,8 @@ namespace API
             app.UseHttpsRedirection();
 
             app.UseAuthentication();
+
+            app.UseStaticFiles();
 
             app.UseRouting();
 

@@ -160,7 +160,7 @@ namespace API.Migrations
                         .HasMaxLength(100)
                         .IsUnicode(true);
 
-                    b.Property<string>("UrlAddress")
+                    b.Property<string>("VideoPath")
                         .HasColumnType("nvarchar(max)");
 
                     b.Property<string>("UserId")

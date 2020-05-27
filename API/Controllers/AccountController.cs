@@ -22,8 +22,6 @@ namespace API.Controllers
         [HttpPost]
         [Route("Register")]
         [AllowAnonymous]
-        [ProducesResponseType(StatusCodes.Status200OK)]
-        [ProducesResponseType(StatusCodes.Status400BadRequest)]
         public async Task<IActionResult> Register([FromBody] RegisterModel model)
         {
             var response = await _accountService.RegisterUserResponse(model);
@@ -37,8 +35,6 @@ namespace API.Controllers
         [HttpPost]
         [Route("Login")]
         [AllowAnonymous]
-        [ProducesResponseType(StatusCodes.Status200OK)]
-        [ProducesResponseType(StatusCodes.Status400BadRequest)]
         public async Task<IActionResult> Login([FromBody] LoginModel model)
         {
             var response = await _accountService.AuthenticateUserResponse(model);

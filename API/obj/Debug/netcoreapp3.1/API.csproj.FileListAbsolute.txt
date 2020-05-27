@@ -120,3 +120,4 @@ C:\Users\Justyn\source\repos\pipsi-semestr-4-projekt\API\bin\Debug\netcoreapp3.1
 C:\Users\Justyn\source\repos\pipsi-semestr-4-projekt\API\bin\Debug\netcoreapp3.1\Microsoft.IdentityModel.Protocols.OpenIdConnect.dll
 C:\Users\Justyn\source\repos\pipsi-semestr-4-projekt\API\obj\Debug\netcoreapp3.1\API.csproj.CoreCompileInputs.cache
 C:\Users\Justyn\source\repos\pipsi-semestr-4-projekt\API\obj\Debug\netcoreapp3.1\API.MvcApplicationPartsAssemblyInfo.cache
+C:\Users\Justyn\source\repos\pipsi-semestr-4-projekt\API\bin\Debug\netcoreapp3.1\web.config

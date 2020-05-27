@@ -29,7 +29,6 @@ namespace API.Controllers
         // GET: api/VideoCategories/id
         [HttpGet("{id}")]
         [ProducesResponseType(StatusCodes.Status200OK)]
-        [ProducesResponseType(StatusCodes.Status404NotFound)]
         public async Task<ActionResult<VideoCategory>> GetById(string id)
         {
             var response = await _service.VideoCategoryFindResponse(id);
@@ -43,8 +42,6 @@ namespace API.Controllers
 
         // PUT: api/VideoCategories/5
         [HttpPut("{id}")]
-        [ProducesResponseType(StatusCodes.Status200OK)]
-        [ProducesResponseType(StatusCodes.Status404NotFound)]
         public async Task<ActionResult> Edit(string id, VideoCategory videoCategory)
         {
             var response = await _service.VideoCategoryUpdateResponse(id, videoCategory);
@@ -58,8 +55,6 @@ namespace API.Controllers
 
         // POST: api/VideoCategories
         [HttpPost]
-        [ProducesResponseType(StatusCodes.Status204NoContent)]
-        [ProducesResponseType(StatusCodes.Status404NotFound)]
         public async Task<ActionResult<VideoCategory>> Create(VideoCategory videoCategory)
         {
             var response = await _service.CreateVideoCategoryResponse(videoCategory);
@@ -73,8 +68,6 @@ namespace API.Controllers
 
         // DELETE: api/VideoCategories/5
         [HttpDelete("{id}")]
-        [ProducesResponseType(StatusCodes.Status204NoContent)]
-        [ProducesResponseType(StatusCodes.Status404NotFound)]
         public async Task<ActionResult<VideoCategory>> Delete(string id)
         {
             var response = await _service.DeleteVideoCategory(id);
