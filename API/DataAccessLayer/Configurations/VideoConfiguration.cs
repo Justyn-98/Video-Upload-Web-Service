@@ -26,7 +26,6 @@ namespace API.DataAccessLayer.Configurations
                 .HasDefaultValue(true)
                 .ValueGeneratedOnAdd();
 
-            builder.Property(l => l.Likes).HasDefaultValue(0);
         }
     }
 }

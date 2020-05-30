@@ -77,6 +77,8 @@ namespace API
             services.AddScoped<IDefaultAdminService, DefaultAdminService>();
             services.AddScoped<IAccountManagementService, AccountManagementService>();
             services.AddScoped<IVideosService, VideosService>();
+            services.AddScoped<ICommentsService, CommentsService>();
+
 
 
         }

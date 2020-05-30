@@ -20,9 +20,6 @@ namespace API.DataAccessLayer.Configurations
             builder.Property(d => d.DateOfCreate)
                 .HasDefaultValue(DateTime.Now)
                 .ValueGeneratedOnAdd();
-
-            builder.Property(l => l.Likes)
-                .HasDefaultValue(0);
         }
     }
 }
