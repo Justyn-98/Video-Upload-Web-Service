@@ -10,6 +10,7 @@ namespace API.Models.Entities
         {
             Comments = new HashSet<Comment>();
             VideoOnPlayLists = new HashSet<VideoOnPlayList>();
+            Likes = new HashSet<VideoLike>();
             DateOfCreate = DateTime.Now;
         }
 
@@ -21,11 +22,12 @@ namespace API.Models.Entities
         public bool IsActive { get; set; }
         public string Name { get; set; }
         public string UrlAddress { get; set; }
-        public string FilePath { get; set; }
+        public string PhotoUrl { get; set; }
         public string Description { get; set; }
         public DateTime DateOfCreate { get; set; }
-        public int Likes { get; set; }
         public ICollection<Comment> Comments { get; set; }
         public ICollection<VideoOnPlayList> VideoOnPlayLists { get; set; }
+        public ICollection<VideoLike> Likes { get; set; }
+
     }
 }
