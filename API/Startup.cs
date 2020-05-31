@@ -78,6 +78,8 @@ namespace API
             services.AddScoped<IAccountManagementService, AccountManagementService>();
             services.AddScoped<IVideosService, VideosService>();
             services.AddScoped<ICommentsService, CommentsService>();
+            services.AddScoped<IPlaylistService, PlayListsSerivce>();
+            services.AddScoped<ILikesService, LikesService>();
 
 
 

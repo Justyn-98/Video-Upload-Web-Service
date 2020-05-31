@@ -12,6 +12,7 @@ namespace API.Services.Interfaces
     public interface ICommentsService
     {
         Task<ServiceResponse<Comment>> CreateCommentResponse(ClaimsPrincipal user, CommentModel model);
-        Task<ServiceResponse<List<object>>> GetVideoCommentsPreparedToSend(string videoId);
+        Task<ServiceResponse<List<object>>> GetVideoCommentsResponse(string videoId);
+        Task<ServiceResponse<object>> GetCommentByIdResponse(string id);
     }
 }

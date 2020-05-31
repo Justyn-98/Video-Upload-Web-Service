@@ -38,7 +38,7 @@ namespace API.Services
             return ServiceResponse<Comment>.Ok(comment);
         }
 
-        public async Task<ServiceResponse<List<object>>> GetVideoCommentsPreparedToSend(string videoId)
+        public async Task<ServiceResponse<List<object>>> GetVideoCommentsResponse(string videoId)
         {
             var comments = await Context.Comments.Include(u => u.User).ToListAsync();
             var videoComments = comments.Where(v => v.VideoId == videoId).ToList();
@@ -78,6 +78,18 @@ namespace API.Services
         {
             var userId = context.Claims.First(id => id.Type == "Id").Value;
             return await _userManager.FindByIdAsync(userId);
+        }
+
+        public async Task<ServiceResponse<object>> GetCommentByIdResponse(string id)
+        {
+            var comment = await Context.Comments.FindAsync(id);
+            return comment == null ? ServiceResponse<object>.Error() : ServiceResponse<object>.Ok(new
+            {
+                Id = comment.Id,
+                Author = comment.User.Email,
+                DateOfCreate = comment.DateOfCreate,
+                Content = comment.Content
+            });
         }
     }
 }

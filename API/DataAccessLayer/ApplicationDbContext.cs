@@ -11,10 +11,12 @@ namespace API.DataAccessLayer
         public ApplicationDbContext(DbContextOptions<ApplicationDbContext> options) : base(options)
         {
         }
-      //  public DbSet<User> Users { get; set; }
+      
+        public DbSet<User> Users { get; set; }
         public DbSet<Video> Videos { get; set; }
         public DbSet<Comment> Comments { get; set; }
         public DbSet<PlayList> PlayLists { get; set; }
+        public DbSet<VideoOnPlayList> VideoOnPlayLists { get; set; }
         public DbSet<VideoCategory> VideoCategories { get; set; }
         public DbSet<Subscription> Subscriptions { get; set; }
         public DbSet<SocialBoardPost> Posts { get; set; }

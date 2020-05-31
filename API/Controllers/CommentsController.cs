@@ -32,26 +32,28 @@ namespace API.Controllers
 
             return CreatedAtAction("GetById", new { id = response.Data.Id }, response.Data.Id);
         }
-        //// GET: api/Comments/
-        //[HttpGet("{id}")]
-        //[Route("Dupa")]
-        //public async Task<ActionResult<Comment>> GetById(string id)
-        //{
-
-
-        //    return Ok();
-        //}
-
-        // GET: api/Comments?VideoId=id}
-        [HttpGet("{videoId}")]
-        public async Task<ActionResult<Comment>> GetVideoCommments(string videoId)
+        // GET: api/Comments/
+        [HttpGet("{id}")]
+        public async Task<ActionResult<Comment>> GetById(string id)
         {
-            var response = await  _service.GetVideoCommentsPreparedToSend(videoId);
+            var response = await _service.GetCommentByIdResponse(id);
 
             if (!response.Success)
                 return NotFound(response.Message);
 
-            return Ok(response.Data.ElementAt(0));
+            return Ok(response.Data);
+        }
+
+        // GET: api/Comments?VideoId=id}
+        [HttpGet]
+        public async Task<ActionResult<Comment>> GetVideoCommments([FromQuery]string videoId)
+        {
+            var response = await  _service.GetVideoCommentsResponse(videoId);
+
+            if (!response.Success)
+                return NotFound(response.Message);
+
+            return Ok(response.Data);
         }
     }
 }
