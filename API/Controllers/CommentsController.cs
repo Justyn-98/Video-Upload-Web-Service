@@ -45,8 +45,8 @@ namespace API.Controllers
         }
 
         // GET: api/Comments?VideoId=id}
-        [HttpGet]
-        public async Task<ActionResult<Comment>> GetVideoCommments([FromQuery]string videoId)
+        [HttpGet()]
+        public async Task<ActionResult<Comment>> GetVideoCommments([FromQuery(Name = "VideoId")]string videoId)
         {
             var response = await  _service.GetVideoCommentsResponse(videoId);
 
