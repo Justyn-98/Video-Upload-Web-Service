@@ -33,7 +33,7 @@ namespace API.Migrations
                     b.Property<DateTime>("DateOfCreate")
                         .ValueGeneratedOnAdd()
                         .HasColumnType("datetime2")
-                        .HasDefaultValue(new DateTime(2020, 5, 31, 10, 27, 34, 991, DateTimeKind.Local).AddTicks(9718));
+                        .HasDefaultValue(new DateTime(2020, 6, 3, 16, 0, 32, 710, DateTimeKind.Local).AddTicks(257));
 
                     b.Property<string>("UserId")
                         .HasColumnType("nvarchar(450)");

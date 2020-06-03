@@ -272,7 +272,7 @@ namespace API.Migrations
                     Id = table.Column<string>(nullable: false),
                     UserId = table.Column<string>(nullable: true),
                     VideoId = table.Column<string>(nullable: true),
-                    DateOfCreate = table.Column<DateTime>(nullable: false, defaultValue: new DateTime(2020, 5, 30, 19, 34, 59, 461, DateTimeKind.Local).AddTicks(1048)),
+                    DateOfCreate = table.Column<DateTime>(nullable: false, defaultValue: new DateTime(2020, 6, 3, 16, 0, 32, 710, DateTimeKind.Local).AddTicks(257)),
                     Content = table.Column<string>(maxLength: 2000, nullable: false)
                 },
                 constraints: table =>
@@ -318,7 +318,7 @@ namespace API.Migrations
                 });
 
             migrationBuilder.CreateTable(
-                name: "VideoOnPlayList",
+                name: "VideoOnPlayLists",
                 columns: table => new
                 {
                     VideoId = table.Column<string>(nullable: false),
@@ -326,15 +326,15 @@ namespace API.Migrations
                 },
                 constraints: table =>
                 {
-                    table.PrimaryKey("PK_VideoOnPlayList", x => new { x.VideoId, x.PlayListId });
+                    table.PrimaryKey("PK_VideoOnPlayLists", x => new { x.VideoId, x.PlayListId });
                     table.ForeignKey(
-                        name: "FK_VideoOnPlayList_PlayLists_PlayListId",
+                        name: "FK_VideoOnPlayLists_PlayLists_PlayListId",
                         column: x => x.PlayListId,
                         principalTable: "PlayLists",
                         principalColumn: "Id",
                         onDelete: ReferentialAction.Cascade);
                     table.ForeignKey(
-                        name: "FK_VideoOnPlayList_Videos_VideoId",
+                        name: "FK_VideoOnPlayLists_Videos_VideoId",
                         column: x => x.VideoId,
                         principalTable: "Videos",
                         principalColumn: "Id",
@@ -416,8 +416,8 @@ namespace API.Migrations
                 column: "ChanelAuthorId");
 
             migrationBuilder.CreateIndex(
-                name: "IX_VideoOnPlayList_PlayListId",
-                table: "VideoOnPlayList",
+                name: "IX_VideoOnPlayLists_PlayListId",
+                table: "VideoOnPlayLists",
                 column: "PlayListId");
 
             migrationBuilder.CreateIndex(
@@ -461,7 +461,7 @@ namespace API.Migrations
                 name: "Subscriptions");
 
             migrationBuilder.DropTable(
-                name: "VideoOnPlayList");
+                name: "VideoOnPlayLists");
 
             migrationBuilder.DropTable(
                 name: "AspNetRoles");

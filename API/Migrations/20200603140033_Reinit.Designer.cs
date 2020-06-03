@@ -10,7 +10,7 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace API.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
-    [Migration("20200530173459_Reinit")]
+    [Migration("20200603140033_Reinit")]
     partial class Reinit
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -35,7 +35,7 @@ namespace API.Migrations
                     b.Property<DateTime>("DateOfCreate")
                         .ValueGeneratedOnAdd()
                         .HasColumnType("datetime2")
-                        .HasDefaultValue(new DateTime(2020, 5, 30, 19, 34, 59, 461, DateTimeKind.Local).AddTicks(1048));
+                        .HasDefaultValue(new DateTime(2020, 6, 3, 16, 0, 32, 710, DateTimeKind.Local).AddTicks(257));
 
                     b.Property<string>("UserId")
                         .HasColumnType("nvarchar(450)");
@@ -218,7 +218,7 @@ namespace API.Migrations
 
                     b.HasIndex("PlayListId");
 
-                    b.ToTable("VideoOnPlayList");
+                    b.ToTable("VideoOnPlayLists");
                 });
 
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityRole", b =>
