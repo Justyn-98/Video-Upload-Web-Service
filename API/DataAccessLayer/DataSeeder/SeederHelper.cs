@@ -13,9 +13,15 @@ namespace API.DataAccessLayer.DataSeeder
 
         public readonly string _descriptionName = "Opis:  ";
 
+        public readonly string _playListName = "Play lista:  ";
+
+        public readonly string _userName = "Użytkownik nr:  ";
+
+        public readonly string _emailAddress = "@wp.pl";
+
         private readonly List<string> _videoCategoriesNames = new List<string>()
         {
-            "Sc-Fi", "Komedia", "Dramat","Śmieszne Kotki",""
+            "Sc-Fi", "Komedia", "Dramat","Śmieszne Kotki","Kryminalny","Naukowe","Dokumentalne"
         };
 
         private readonly Random _random = new Random();
@@ -33,6 +39,9 @@ namespace API.DataAccessLayer.DataSeeder
 
         public string GetRandomString()
             => Guid.NewGuid() + " " + Guid.NewGuid();
+
+        public string GetRandomShortString()
+            => Guid.NewGuid().ToString();
     }
 }
 
