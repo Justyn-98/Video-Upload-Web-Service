@@ -43,7 +43,7 @@ namespace API.Services
             var comments = await Context.Comments.Include(u => u.User).ToListAsync();
             var videoComments = comments.Where(v => v.VideoId == videoId).ToList();
 
-            if (videoComments == null)
+            if (videoComments.Count() < 1)
                 return ServiceResponse<List<object>>.Error(new SingleMessage("Video not found"));
 
             return ServiceResponse<List<object>>.Ok(PrepeareCommentsToSend(videoComments));
@@ -52,7 +52,8 @@ namespace API.Services
         private Comment CreateComment(User signedUser, CommentModel model)
             => new Comment
             {
-                Id = signedUser.Id,
+                Id= Guid.NewGuid().ToString(),
+                UserId = signedUser.Id,
                 VideoId = model.VideoId,
                 Content = model.Content,
                 DateOfCreate = DateTime.Now
@@ -82,7 +83,8 @@ namespace API.Services
 
         public async Task<ServiceResponse<object>> GetCommentByIdResponse(string id)
         {
-            var comment = await Context.Comments.FindAsync(id);
+            var comments = Context.Comments.Include(u => u.User); 
+            var comment = await comments.FirstAsync(i=>i.Id.Equals(id));
             return comment == null ? ServiceResponse<object>.Error() : ServiceResponse<object>.Ok(new
             {
                 Id = comment.Id,
