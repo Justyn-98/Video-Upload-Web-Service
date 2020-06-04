@@ -1,5 +1,4 @@
-﻿using API.DataAccessLayer.DataSeeder;
-using API.Models.Entities;
+﻿using API.Models.Entities;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore;
@@ -28,7 +27,6 @@ namespace API.DataAccessLayer
         {
             base.OnModelCreating(builder);
             builder.ApplyConfigurationsFromAssembly(typeof(ApplicationDbContext).Assembly);
-          //  builder.SeedData();
         }
     }
 }

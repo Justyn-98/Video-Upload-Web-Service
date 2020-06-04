@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 
-namespace API.DataAccessLayer.DataSeeder
+namespace API.DataSeedServices
 {
     public class SeederHelper
     {

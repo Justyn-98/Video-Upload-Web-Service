@@ -1,4 +1,5 @@
 using API.DataAccessLayer;
+using API.DataSeedServices;
 using API.Models.Entities;
 using API.Services;
 using API.Services.Interfaces;
@@ -87,6 +88,9 @@ namespace API
             services.AddScoped<ICommentsService, CommentsService>();
             services.AddScoped<IPlaylistService, PlayListsSerivce>();
             services.AddScoped<ILikesService, LikesService>();
+            services.AddScoped<IDataSeedService, DataSeedService>();
+
+
 
 
 
@@ -123,6 +127,10 @@ namespace API
 
             var defaultAdminService = serviceProvider.GetRequiredService<IDefaultAdminService>();
             defaultAdminService.CreateTestUser();
+
+            var dataSeedService =serviceProvider.GetRequiredService<IDataSeedService>();
+            //var result = dataSeedService.SeedData();
+            //result.Wait();
 
         }
     }
