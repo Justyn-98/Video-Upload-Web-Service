@@ -1,23 +1,26 @@
 using API.DataAccessLayer;
 using API.DataSeedServices;
 using API.Models.Entities;
-using API.Services;
-using API.Services.Interfaces;
+using API.Services.AccountManagementService;
+using API.Services.AccountService;
+using API.Services.CommentsService;
+using API.Services.LikesService;
+using API.Services.PlayListsService;
 using API.Services.UserRolesServices;
 using API.Services.UserRolesServices.Interfaces;
+using API.Services.UserSignInService;
+using API.Services.VideoCategoriesService;
+using API.Services.VideosService;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
-using Microsoft.AspNetCore.Http.Features;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
-using Microsoft.EntityFrameworkCore.Metadata;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 using Microsoft.IdentityModel.Tokens;
 using System;
-using System.Numerics;
 using System.Text;
 
 namespace API
@@ -83,12 +86,13 @@ namespace API
             services.AddScoped<IVideoCategoryService, VideoCategoryService>();
             services.AddScoped<IRolesCreateService, RolesCreateService>();
             services.AddScoped<IDefaultAdminService, DefaultAdminService>();
-            services.AddScoped<IAccountManagementService, AccountManagementService>();
+            services.AddScoped<IAccountDetailsService, AccountDeatilsService>();
             services.AddScoped<IVideosService, VideosService>();
             services.AddScoped<ICommentsService, CommentsService>();
             services.AddScoped<IPlaylistService, PlayListsSerivce>();
             services.AddScoped<ILikesService, LikesService>();
             services.AddScoped<IDataSeedService, DataSeedService>();
+            services.AddScoped<IUserSignInHelper, UserSignInHelper>();
 
 
 

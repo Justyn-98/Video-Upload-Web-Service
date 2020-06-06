@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
-using API.Services.Interfaces;
+using API.Services.AccountManagementService;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
@@ -14,8 +14,8 @@ namespace API.Controllers
     public class AccountManagementController : Controller
     {
 
-        private readonly IAccountManagementService _service;
-        public AccountManagementController(IAccountManagementService service)
+        private readonly IAccountDetailsService _service;
+        public AccountManagementController(IAccountDetailsService service)
         {
             _service = service;
         }

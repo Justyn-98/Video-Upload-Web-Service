@@ -2,7 +2,6 @@
 using API.Models.Entities;
 using API.Responses;
 using API.ServiceResponses;
-using API.Services.Interfaces;
 using Microsoft.AspNetCore.Identity;
 using System;
 using System.Collections.Generic;
@@ -10,12 +9,12 @@ using System.Linq;
 using System.Security.Claims;
 using System.Threading.Tasks;
 
-namespace API.Services
+namespace API.Services.AccountManagementService
 {
-    public class AccountManagementService : DatabaseAccessService, IAccountManagementService
+    public class AccountDeatilsService : DatabaseAccessService, IAccountDetailsService
     {
         private readonly UserManager<User> _userManager;
-        public AccountManagementService(ApplicationDbContext context, UserManager<User> userManager) : base(context)
+        public AccountDeatilsService(ApplicationDbContext context, UserManager<User> userManager) : base(context)
         {
             _userManager = userManager;
         }

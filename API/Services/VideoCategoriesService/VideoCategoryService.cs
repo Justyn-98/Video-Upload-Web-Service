@@ -1,6 +1,5 @@
 ﻿using API.DataAccessLayer;
 using API.ServiceResponses;
-using API.Services.Interfaces;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using System;
@@ -10,7 +9,7 @@ using System.Threading.Tasks;
 using API.Models.Entities;
 using API.Responses;
 
-namespace API.Services
+namespace API.Services.VideoCategoriesService
 {
     public class VideoCategoryService : DatabaseAccessService, IVideoCategoryService
     {
@@ -44,7 +43,7 @@ namespace API.Services
             videoCategory.Id = entity.Id;
             Context.Update(videoCategory);
             var numberOfChanges = await Context.SaveChangesAsync();
-                
+
             return ServiceResponse<int>.Ok(numberOfChanges, new SingleMessage("Video Category Updated"));
         }
 
@@ -64,7 +63,7 @@ namespace API.Services
             return ServiceResponse<VideoCategory>.Ok(videoCategory);
         }
 
-    
+
     }
 
 }

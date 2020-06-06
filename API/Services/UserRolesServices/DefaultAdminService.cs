@@ -1,5 +1,6 @@
 ﻿using API.Models.Entities;
 using API.Services.UserRolesServices.Interfaces;
+using API.Services.UserRolesServices.Model;
 using Microsoft.AspNetCore.Identity;
 using System;
 using System.Collections.Generic;

@@ -1,9 +1,6 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
+﻿using System.Threading.Tasks;
 using API.Models.Entities;
-using API.Services.Interfaces;
+using API.Services.LikesService;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 
@@ -24,28 +21,25 @@ namespace API.Controllers
         [AllowAnonymous]
         public  ActionResult<VideoLike> GetLikes([FromQuery(Name = "VideoId")]string videoId)
         {
-            var response =  _service.GetVideoLikesCount(videoId, User);
-
-            if (!response.Success)
-                return NotFound(response.Message);
+            var response =  _service.GetVideoLikesCountResonse(videoId, User);
 
             return Ok(response.Data);
         }
 
-        //POST: api/Likes
+        //POST: api/Likes?VideoId={videoId}
         [HttpPost]
         [Authorize]
-        public async Task<ActionResult<VideoLike>> Create([FromQuery(Name = "VideoId")]string videoId)
+        public async Task<ActionResult> Create([FromQuery(Name = "VideoId")]string videoId)
         {
             var response = await _service.CreateLikeResponse(videoId, User);
 
             if (!response.Success)
-                return NotFound(response.Message);
+                return Conflict(response.Message);
 
-            return Ok(response.Data);
+            return NoContent();
         }
 
-        //DELETE: api/Likes
+        //DELETE: api/Likes?VideoId={videoId}
         [HttpDelete]
         [Authorize]
         public async Task<ActionResult<VideoLike>> Unlike([FromQuery]string videoId)
@@ -53,9 +47,9 @@ namespace API.Controllers
             var response = await _service.DeleteLikeResponse(videoId, User);
 
             if (!response.Success)
-                return NotFound(response.Message);
+                return Conflict(response.Message);
 
-            return Ok(response.Data);
+            return NoContent();
         }
     }
 }

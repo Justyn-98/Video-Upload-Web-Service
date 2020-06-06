@@ -6,9 +6,9 @@ using System.Linq;
 using System.Security.Claims;
 using System.Threading.Tasks;
 
-namespace API.Services.Interfaces
+namespace API.Services.AccountManagementService
 {
-    public interface IAccountManagementService
+    public interface IAccountDetailsService
     {
         Task<ServiceResponse<User>> GetSignedUserDetailsResponse(ClaimsPrincipal context);
     }

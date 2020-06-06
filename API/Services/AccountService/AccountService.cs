@@ -4,7 +4,6 @@ using API.Models.Entities;
 using API.Responses;
 using API.Responses.Messages;
 using API.ServiceResponses;
-using API.Services.Interfaces;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.Extensions.Configuration;
 using Microsoft.IdentityModel.Tokens;
@@ -16,7 +15,7 @@ using System.Security.Claims;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace API.Services
+namespace API.Services.AccountService
 {
     public class AccountService : DatabaseAccessService, IAccountService
     {

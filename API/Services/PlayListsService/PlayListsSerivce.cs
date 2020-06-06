@@ -3,17 +3,14 @@ using API.Models.ApiModels;
 using API.Models.Entities;
 using API.Responses;
 using API.ServiceResponses;
-using API.Services.Interfaces;
 using Microsoft.EntityFrameworkCore;
-using Newtonsoft.Json.Serialization;
 using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Reflection.Metadata.Ecma335;
 using System.Security.Claims;
 using System.Threading.Tasks;
 
-namespace API.Services
+namespace API.Services.PlayListsService
 {
     public class PlayListsSerivce : DatabaseAccessService, IPlaylistService
     {
@@ -39,7 +36,7 @@ namespace API.Services
         public async Task<ServiceResponse<List<object>>> GetSignedUserPlaylistsResponse(ClaimsPrincipal context)
         {
             var userId = context.Claims.First(id => id.Type == "Id").Value;
-            
+
             if (userId == null)
                 return ServiceResponse<List<object>>.Error(new SingleMessage("User not signed"));
 
@@ -86,7 +83,7 @@ namespace API.Services
             {
                 preparedPlayLists.Add(new
                 {
-                    Id = plyslist.Id,
+                    plyslist.Id,
 
                     Author = plyslist.User.Email,
                 });

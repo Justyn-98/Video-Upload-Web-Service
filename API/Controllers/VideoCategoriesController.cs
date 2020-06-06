@@ -2,9 +2,8 @@
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
 using API.Models.Entities;
-using API.Services.Interfaces;
 using Microsoft.AspNetCore.Http;
-
+using API.Services.VideoCategoriesService;
 
 namespace API.Controllers
 {

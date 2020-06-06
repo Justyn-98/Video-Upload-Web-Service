@@ -7,7 +7,7 @@ using System.Linq;
 using System.Security.Claims;
 using System.Threading.Tasks;
 
-namespace API.Services.Interfaces
+namespace API.Services.CommentsService
 {
     public interface ICommentsService
     {

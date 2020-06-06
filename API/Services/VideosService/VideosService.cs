@@ -3,7 +3,6 @@ using API.Models.ApiModels;
 using API.Models.Entities;
 using API.Responses;
 using API.ServiceResponses;
-using API.Services.Interfaces;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
@@ -15,14 +14,14 @@ using System.Net.Http;
 using System.Security.Claims;
 using System.Threading.Tasks;
 
-namespace API.Services
+namespace API.Services.VideosService
 {
     public class VideosService : DatabaseAccessService, IVideosService
     {
         private readonly IHostEnvironment _hostEnvironment;
         private readonly UserManager<User> _userManager;
         private HttpClient _client;
-        
+
         public VideosService(ApplicationDbContext context, IHostEnvironment hostEnvironment, UserManager<User> userManager) : base(context)
         {
             _hostEnvironment = hostEnvironment;
@@ -68,7 +67,7 @@ namespace API.Services
 
             var choosenVideoCategory = await Context.VideoCategories.FindAsync(model.VideoCategoryId);
 
-            if(choosenVideoCategory == null)
+            if (choosenVideoCategory == null)
                 return ServiceResponse<Video>.Error(new SingleMessage("Not selected Video Category"));
 
             var video = CreateVideo(signedUser, model, choosenVideoCategory);
@@ -78,7 +77,7 @@ namespace API.Services
             return ServiceResponse<Video>.Ok(video);
         }
 
-        private  Video CreateVideo(User user, VideoModel model, VideoCategory videoCategory)
+        private Video CreateVideo(User user, VideoModel model, VideoCategory videoCategory)
         {
             return new Video
             {

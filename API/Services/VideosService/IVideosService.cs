@@ -6,7 +6,7 @@ using System.IO;
 using System.Security.Claims;
 using System.Threading.Tasks;
 
-namespace API.Services.Interfaces
+namespace API.Services.VideosService
 {
     public interface IVideosService
     {

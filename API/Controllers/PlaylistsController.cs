@@ -4,7 +4,7 @@ using System.Linq;
 using System.Threading.Tasks;
 using API.Models.ApiModels;
 using API.Models.Entities;
-using API.Services.Interfaces;
+using API.Services.PlayListsService;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 
@@ -32,6 +32,7 @@ namespace API.Controllers
 
             return Ok(response.Data);
         }
+
         // POST: api/PlayLists
         [HttpPost]
         [Authorize]
