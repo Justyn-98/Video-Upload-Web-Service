@@ -20,7 +20,7 @@ namespace API.Controllers
             _service = service;
         }
 
-        // POST: api/Comments/
+        // POST: api/Comments
         [HttpPost]
         [Authorize]
         public async Task<ActionResult<Comment>> Create(CommentModel model)
@@ -30,8 +30,9 @@ namespace API.Controllers
             if (!response.Success)
                 return Conflict(response.Message);
 
-            return CreatedAtAction("GetById", new { id = response.Data.Id }, response.Data.Id);
+            return CreatedAtAction("GetById", new { id = response.Data.Id },response.Data);
         }
+
         // GET: api/Comments/
         [HttpGet("{id}")]
         public async Task<ActionResult<Comment>> GetById(string id)
@@ -54,6 +55,19 @@ namespace API.Controllers
                 return NotFound(response.Message);
 
             return Ok(response.Data);
+        }
+
+        // GET: api/Comments
+        [HttpDelete("{id}")]
+        [Authorize]
+        public async Task<ActionResult> Delete(string id)
+        {
+            var response = await _service.DeleteCommentResponse(id, User);
+
+            if (!response.Success)
+                return Conflict(response.Message);
+
+            return NoContent();
         }
     }
 }

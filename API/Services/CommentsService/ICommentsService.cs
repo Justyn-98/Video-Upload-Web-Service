@@ -14,5 +14,6 @@ namespace API.Services.CommentsService
         Task<ServiceResponse<Comment>> CreateCommentResponse(ClaimsPrincipal user, CommentModel model);
         Task<ServiceResponse<List<object>>> GetVideoCommentsResponse(string videoId);
         Task<ServiceResponse<object>> GetCommentByIdResponse(string id);
+        Task<ServiceResponse<bool>> DeleteCommentResponse(string id, ClaimsPrincipal claimsPrincipal);
     }
 }

@@ -45,9 +45,9 @@ namespace API.Services.CommentsService
 
         public async Task<ServiceResponse<object>> GetCommentByIdResponse(string id)
         {
-            var commentsWithUsers = Context.Comments.Include(u => u.User);
-            var comment = await commentsWithUsers.FirstAsync(i => i.Id.Equals(id));
-            return comment == null ? ServiceResponse<object>.Error() 
+            var commentsWithUsers = await Context.Comments.Include(u => u.User).ToListAsync();
+            var comment =  commentsWithUsers.FirstOrDefault(i => i.Id.Equals(id));
+            return comment == null ? ServiceResponse<object>.Error(new SingleMessage("Comment not exist")) 
                 : ServiceResponse<object>.Ok(PrepareCommentToSend(comment));
         }
 
@@ -57,7 +57,7 @@ namespace API.Services.CommentsService
             var comment = await Context.Comments.Where(c => c.Id.Equals(id))
                 .Where(u => u.UserId.Equals(userId)).FirstOrDefaultAsync();
             if (comment == null)
-                ServiceResponse<bool>.Error(new SingleMessage("Signed user have not acces to delete this comment"));
+              return  ServiceResponse<bool>.Error(new SingleMessage("Signed user have not acces to delete this comment"));
 
             Context.Remove(comment);
             await Context.SaveChangesAsync();
