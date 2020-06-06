@@ -23,11 +23,12 @@ namespace API.Services.CommentsService
             _helper = helper;
         }
 
-        public async Task<ServiceResponse<Comment>> CreateCommentResponse(ClaimsPrincipal context, CommentModel model)
+        public async Task<ServiceResponse<Comment>> CreateCommentResponse(
+            ClaimsPrincipal context, CommentModel model, string videoId)
         {
             var signedUserId = _helper.GetSignedUserId(context);
 
-            var comment = CreateComment(signedUserId, model);
+            var comment = CreateComment(signedUserId, model, videoId);
 
             Context.Comments.Add(comment);
             await Context.SaveChangesAsync();
@@ -64,11 +65,11 @@ namespace API.Services.CommentsService
             return ServiceResponse<bool>.Ok();
         }
 
-        private Comment CreateComment(string signedUserId, CommentModel model) => new Comment
+        private Comment CreateComment(string signedUserId, CommentModel model, string videoId) => new Comment
         {
             Id = Guid.NewGuid().ToString(),
             UserId = signedUserId,
-            VideoId = model.VideoId,
+            VideoId = videoId,
             Content = model.Content
         };
 

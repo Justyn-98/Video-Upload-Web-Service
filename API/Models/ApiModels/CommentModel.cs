@@ -9,9 +9,6 @@ namespace API.Models.ApiModels
     public class CommentModel
     {
         [Required]
-        public string VideoId { get; set; }
-
-        [Required]
         public string Content { get; set; }
     }
 }

@@ -11,7 +11,7 @@ namespace API.Services.CommentsService
 {
     public interface ICommentsService
     {
-        Task<ServiceResponse<Comment>> CreateCommentResponse(ClaimsPrincipal user, CommentModel model);
+        Task<ServiceResponse<Comment>> CreateCommentResponse(ClaimsPrincipal user, CommentModel model, string videoId);
         Task<ServiceResponse<List<object>>> GetVideoCommentsResponse(string videoId);
         Task<ServiceResponse<object>> GetCommentByIdResponse(string id);
         Task<ServiceResponse<bool>> DeleteCommentResponse(string id, ClaimsPrincipal claimsPrincipal);

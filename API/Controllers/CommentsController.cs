@@ -21,11 +21,11 @@ namespace API.Controllers
         }
 
         // POST: api/Comments
-        [HttpPost]
+        [HttpPost()]
         [Authorize]
-        public async Task<ActionResult<Comment>> Create(CommentModel model)
+        public async Task<ActionResult<Comment>> Create([FromQuery(Name = "VideoId")]string videoId, CommentModel model)
         {
-            var response = await _service.CreateCommentResponse(User, model);
+            var response = await _service.CreateCommentResponse(User, model,videoId);
 
             if (!response.Success)
                 return Conflict(response.Message);
