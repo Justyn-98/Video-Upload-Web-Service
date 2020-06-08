@@ -1,14 +1,18 @@
 using API.DataAccessLayer;
 using API.DataSeedServices;
+using API.Helpers.CommentResponseHelper;
+using API.Helpers.EmailSenderHelper;
+using API.Helpers.SubscriptionResponseHelper;
+using API.Helpers.UserSignInHelper;
 using API.Models.Entities;
 using API.Services.AccountManagementService;
 using API.Services.AccountService;
 using API.Services.CommentsService;
 using API.Services.LikesService;
 using API.Services.PlayListsService;
+using API.Services.SubscriptionsService;
 using API.Services.UserRolesServices;
 using API.Services.UserRolesServices.Interfaces;
-using API.Services.UserSignInService;
 using API.Services.VideoCategoriesService;
 using API.Services.VideosService;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
@@ -55,7 +59,6 @@ namespace API
                 options.Password.RequiredLength = 8;
             });
 
-
             services.AddAuthentication(x =>
             {
                 x.DefaultAuthenticateScheme = JwtBearerDefaults.AuthenticationScheme;
@@ -92,7 +95,13 @@ namespace API
             services.AddScoped<IPlaylistService, PlayListsSerivce>();
             services.AddScoped<ILikesService, LikesService>();
             services.AddScoped<IDataSeedService, DataSeedService>();
+            services.AddScoped<ISubscriptionsService, SubscriptionService>();
+
+
             services.AddScoped<IUserSignInHelper, UserSignInHelper>();
+            services.AddScoped<ISubscriptionResponseHelper, SubscriptionResponseHelper>();
+            services.AddScoped<ICommentResponseHelper, CommentResponseHelper>();
+            services.AddScoped<IEmailSenderHelper, EmailSender>();
 
 
 

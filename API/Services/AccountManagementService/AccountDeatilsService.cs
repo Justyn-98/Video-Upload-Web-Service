@@ -23,7 +23,7 @@ namespace API.Services.AccountManagementService
         {
             var userId = context.Claims.First(id => id.Type == "Id").Value;
             var user = await _userManager.FindByIdAsync(userId);
-            return user != null ? ServiceResponse<User>.Ok(user) : ServiceResponse<User>.Error(new SingleMessage("chuj dupa cycki"));
+            return user != null ? ServiceResponse<User>.Ok(user) : ServiceResponse<User>.Error(new ErrorMessage("chuj dupa cycki"));
         }
     }
 }

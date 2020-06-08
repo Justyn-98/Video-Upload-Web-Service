@@ -1,6 +1,6 @@
 ﻿using API.DataAccessLayer;
-using API.Models.ApiModels;
 using API.Models.Entities;
+using API.Models.RequestModels;
 using API.Responses;
 using API.Responses.Messages;
 using API.ServiceResponses;
@@ -29,9 +29,9 @@ namespace API.Services.AccountService
             _config = config;
         }
 
-        public async Task<ServiceResponse<string>> AuthenticateUserResponse(LoginModel model)
+        public async Task<ServiceResponse<string>> AuthenticateUserResponse(LoginRequest model)
         {
-            var errorMessage = new SingleMessage("Email address or password is incorrect");
+            var errorMessage = new ErrorMessage("Email address or password is incorrect");
 
             var user = await _userManager.FindByEmailAsync(model.EmailAddress);
 
@@ -44,22 +44,22 @@ namespace API.Services.AccountService
                 ServiceResponse<string>.Error(errorMessage);
         }
 
-        public async Task<ServiceResponse<bool>> RegisterUserResponse(RegisterModel model)
+        public async Task<ServiceResponse<bool>> RegisterUserResponse(RegisterRequest model)
         {
             var user = new User { UserName = model.EmailAddress, Email = model.EmailAddress };
             var result = await _userManager.CreateAsync(user, model.Password);
-            return result.Succeeded ? ServiceResponse<bool>.Ok(new SingleMessage("Successful registration"))
+            return result.Succeeded ? ServiceResponse<bool>.Ok(new ErrorMessage("Successful registration"))
                 : ServiceResponse<bool>.Error(CreateErrorMessages(result));
         }
 
-        private Messages CreateErrorMessages(IdentityResult result)
+        private ErrorMessages CreateErrorMessages(IdentityResult result)
         {
             List<string> errorMessages = new List<string>();
             foreach (var error in result.Errors)
             {
                 errorMessages.Add(error.Description);
             }
-            return new Messages(errorMessages);
+            return new ErrorMessages(errorMessages);
         }
 
         private string GenerateJSONWebToken(User user)

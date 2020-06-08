@@ -1,13 +1,8 @@
-﻿using Microsoft.AspNetCore.Http;
-using System;
-using System.Collections.Generic;
-using System.ComponentModel.DataAnnotations;
-using System.Linq;
-using System.Threading.Tasks;
+﻿using System.ComponentModel.DataAnnotations;
 
-namespace API.Models.ApiModels
+namespace API.Models.RequestModels
 {
-    public class VideoModel
+    public class VideoRequest
     {
         [Required]
         public string Name { get; set; }

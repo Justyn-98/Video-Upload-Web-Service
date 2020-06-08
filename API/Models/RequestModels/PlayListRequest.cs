@@ -4,9 +4,9 @@ using System.ComponentModel.DataAnnotations;
 using System.Linq;
 using System.Threading.Tasks;
 
-namespace API.Models.ApiModels
+namespace API.Models.RequestModels
 {
-    public class PlayListModel
+    public class PlayListRequest
     {
         [Required]
         public string Name { get; set; }

@@ -2,8 +2,8 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
-using API.Models.ApiModels;
 using API.Models.Entities;
+using API.Models.RequestModels;
 using API.Services.CommentsService;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
@@ -23,7 +23,7 @@ namespace API.Controllers
         // POST: api/Comments
         [HttpPost()]
         [Authorize]
-        public async Task<ActionResult<Comment>> Create([FromQuery(Name = "VideoId")]string videoId, CommentModel model)
+        public async Task<ActionResult<Comment>> Create([FromQuery(Name = "VideoId")]string videoId, CommentRequest model)
         {
             var response = await _service.CreateCommentResponse(User, model,videoId);
 

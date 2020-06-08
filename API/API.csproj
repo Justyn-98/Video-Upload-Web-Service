@@ -5,13 +5,6 @@
   </PropertyGroup>
 
   <ItemGroup>
-    <Compile Remove="Models\NewFolder\**" />
-    <Content Remove="Models\NewFolder\**" />
-    <EmbeddedResource Remove="Models\NewFolder\**" />
-    <None Remove="Models\NewFolder\**" />
-  </ItemGroup>
-
-  <ItemGroup>
     <Compile Remove="Migrations\20200401175732_init.cs" />
     <Compile Remove="Migrations\20200401175732_init.Designer.cs" />
     <Compile Remove="Migrations\20200426165503_init.cs" />
@@ -47,6 +40,7 @@
   </ItemGroup>
 
   <ItemGroup>
+    <PackageReference Include="MailKit" Version="2.7.0" />
     <PackageReference Include="Microsoft.AspNetCore.Authentication.JwtBearer" Version="3.1.4" />
     <PackageReference Include="Microsoft.AspNetCore.Identity.EntityFrameworkCore" Version="3.1.0" />
     <PackageReference Include="Microsoft.EntityFrameworkCore" Version="3.1.0" />

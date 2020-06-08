@@ -2,8 +2,8 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
-using API.Models.ApiModels;
 using API.Models.Entities;
+using API.Models.RequestModels;
 using API.Services.PlayListsService;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
@@ -34,24 +34,26 @@ namespace API.Controllers
         }
 
         // POST: api/PlayLists
-        [HttpPost]
+        [HttpPost()]
         [Authorize]
-        public  ActionResult<PlayList> Create(PlayListModel model)
+        public async  Task<ActionResult<PlayList>> Create(PlayListRequest model)
         {
-            var response = _service.CreatePlayListResponse(model, User);
+            var response = await _service.CreatePlayListResponse(model, User);
 
             if (!response.Success)
                 return NotFound(response.Message);
 
             return Ok(response.Data);
         }
-        //PUT: api/PlayLists/Insert?PlayListId={playlistId}&VideoId={videoId}
-        [HttpPut]
-        [Authorize]
+
+        //PATCH: api/PlayLists/Insert?PlayListId={playlistId}&VideoId={videoId}
         [Route("Insert")]
-        public async Task<ActionResult<PlayList>> Insert([FromQuery]string playlistId, string videoId)
+        [HttpPatch()]
+        [Authorize]
+        public async Task<ActionResult<PlayList>> Insert(
+            [FromQuery(Name = "PlaylistId")]string playlistId, [FromQuery(Name = "VideoId")]string videoId)
         {
-            var response = await _service.InsertVideoToPlayListResponse(playlistId,videoId);
+            var response = await _service.InsertVideoToPlayListResponse( playlistId, videoId);
 
             if (!response.Success)
                 return NotFound(response.Message);
@@ -59,11 +61,12 @@ namespace API.Controllers
             return Ok(response.Data);
         }
 
-        //PUT: api/PlayLists/RemoveVideo?PlayListId={playlistId}&VideoId={videoId}
-        [HttpPut]
+        //PATCH: api/PlayLists/RemoveVideo?PlayListId={playlistId}&VideoId={videoId}
+        [HttpPatch]
         [Authorize]
         [Route("RemoveVideo")]
-        public async  Task<ActionResult<PlayList>> RemoveVideo([FromQuery]string playlistId, string videoId)
+        public async Task<ActionResult<PlayList>> RemoveVideo(
+            [FromQuery(Name = "PlaylistId")]string playlistId, [FromQuery(Name = "VideoId")]string videoId)
         {
             var response = await _service.RemoveVideoFromPlayListResponse(playlistId, videoId);
 

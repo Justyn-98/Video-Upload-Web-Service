@@ -4,6 +4,7 @@ using Microsoft.AspNetCore.Mvc;
 using API.Models.Entities;
 using Microsoft.AspNetCore.Http;
 using API.Services.VideoCategoriesService;
+using API.Models.RequestModels;
 
 namespace API.Controllers
 {
@@ -41,9 +42,9 @@ namespace API.Controllers
 
         // PUT: api/VideoCategories/5
         [HttpPut("{id}")]
-        public async Task<ActionResult> Edit(string id,[FromBody] string  name)
+        public async Task<ActionResult> Edit(string id,[FromBody] VideoCategoryRequest model)
         {
-            var response = await _service.VideoCategoryUpdateResponse(id, name);
+            var response = await _service.VideoCategoryUpdateResponse(id, model);
 
             if (!response.Success)
                 return NotFound(response.Message);

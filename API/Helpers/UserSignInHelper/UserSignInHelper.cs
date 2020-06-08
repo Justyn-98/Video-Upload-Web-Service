@@ -6,20 +6,20 @@ using System.Linq;
 using System.Security.Claims;
 using System.Threading.Tasks;
 
-namespace API.Services.UserSignInService
+namespace API.Helpers.UserSignInHelper
 {
     public class UserSignInHelper : IUserSignInHelper
     {
 
         private readonly UserManager<User> _userManager;
 
-        public UserSignInHelper(UserManager<User> userManager) 
+        public UserSignInHelper(UserManager<User> userManager)
         {
             _userManager = userManager;
         }
         public async Task<User> GetSignedUser(ClaimsPrincipal claimsPrincipal)
         {
-            try 
+            try
             {
                 var userId = claimsPrincipal.Claims.First(id => id.Type == "Id").Value;
                 return await _userManager.FindByIdAsync(userId);

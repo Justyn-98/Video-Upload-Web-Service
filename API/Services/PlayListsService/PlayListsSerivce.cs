@@ -1,6 +1,7 @@
 ﻿using API.DataAccessLayer;
-using API.Models.ApiModels;
+using API.Helpers.UserSignInHelper;
 using API.Models.Entities;
+using API.Models.RequestModels;
 using API.Responses;
 using API.ServiceResponses;
 using Microsoft.EntityFrameworkCore;
@@ -14,44 +15,43 @@ namespace API.Services.PlayListsService
 {
     public class PlayListsSerivce : DatabaseAccessService, IPlaylistService
     {
-        public PlayListsSerivce(ApplicationDbContext context) : base(context)
+        private readonly IUserSignInHelper _helper;
+        public PlayListsSerivce(ApplicationDbContext context, IUserSignInHelper helper) : base(context)
         {
+            _helper = helper;
         }
 
-        public ServiceResponse<PlayList> CreatePlayListResponse(PlayListModel model, ClaimsPrincipal context)
+        public async Task<ServiceResponse<PlayList>> CreatePlayListResponse(PlayListRequest model, ClaimsPrincipal claimsPrincipal)
         {
-            var userId = context.Claims.First(id => id.Type == "Id").Value;
+            var userId = _helper.GetSignedUserId(claimsPrincipal);
 
-            if (userId == null)
-                return ServiceResponse<PlayList>.Error(new SingleMessage("User not signed"));
-
-            return ServiceResponse<PlayList>.Ok(new PlayList
+            var playlist = new PlayList
             {
                 Id = Guid.NewGuid().ToString(),
                 UserId = userId,
                 Name = model.Name
-            });
+            };
+            Context.Add(playlist);
+            await Context.SaveChangesAsync();
+            return ServiceResponse<PlayList>.Ok(playlist);
         }
 
-        public async Task<ServiceResponse<List<object>>> GetSignedUserPlaylistsResponse(ClaimsPrincipal context)
+        public async Task<ServiceResponse<List<object>>> GetSignedUserPlaylistsResponse(ClaimsPrincipal claimsPrincipal)
         {
-            var userId = context.Claims.First(id => id.Type == "Id").Value;
-
-            if (userId == null)
-                return ServiceResponse<List<object>>.Error(new SingleMessage("User not signed"));
+            var userId = _helper.GetSignedUserId(claimsPrincipal);
 
             var usersWithPlaylists = await Context.Users.Include(p => p.PlayLists).ToListAsync();
-            var signedUserPlaylists = usersWithPlaylists.Find(i => i.Id.Equals(userId)).PlayLists;
+            var signedUserPlaylists = usersWithPlaylists.Find(i => i.Id.Equals(userId)).PlayLists.ToList();
 
-            return ServiceResponse<List<object>>.Ok(PreparePlayListsToSend(signedUserPlaylists.ToList()));
+            return ServiceResponse<List<object>>.Ok(PreparePlayListsToSend(signedUserPlaylists));
         }
 
         public async Task<ServiceResponse<bool>> InsertVideoToPlayListResponse(string playlistId, string videoId)
-        {
+        { 
             var video = await Context.Videos.FindAsync(videoId);
             var playList = await Context.PlayLists.FindAsync(playlistId);
             if (video == null || playList == null)
-                return ServiceResponse<bool>.Error();
+                return ServiceResponse<bool>.Error(new ErrorMessage("Not Found video Or playlist"));
 
             var videoOnPlayList = new VideoOnPlayList
             {
@@ -60,15 +60,16 @@ namespace API.Services.PlayListsService
             };
             Context.Add(videoOnPlayList);
             await Context.SaveChangesAsync();
-            return ServiceResponse<bool>.Ok(new SingleMessage("Video added to playlist"));
+            return ServiceResponse<bool>.Ok(new ErrorMessage("Video added to playlist"));
         }
 
         public async Task<ServiceResponse<bool>> RemoveVideoFromPlayListResponse(string playlistId, string videoId)
         {
-            var videoPlayList = Context.VideoOnPlayLists
-                .Where(p => p.PlayListId.Equals(playlistId)).Where(v => v.VideoId.Equals(videoId));
+            var videoPlayList = await Context.VideoOnPlayLists.Where(p => p.PlayListId.Equals(playlistId))
+                .Where(v => v.VideoId.Equals(videoId)).FirstOrDefaultAsync();
+            
             if (videoPlayList == null)
-                return ServiceResponse<bool>.Error();
+                return ServiceResponse<bool>.Error(new ErrorMessage("Not Found claims resource"));
 
             Context.Remove(videoPlayList);
             await Context.SaveChangesAsync();

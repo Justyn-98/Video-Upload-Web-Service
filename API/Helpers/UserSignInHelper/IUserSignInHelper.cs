@@ -5,7 +5,7 @@ using System.Linq;
 using System.Security.Claims;
 using System.Threading.Tasks;
 
-namespace API.Services.UserSignInService
+namespace API.Helpers.UserSignInHelper
 {
     public interface IUserSignInHelper
     {

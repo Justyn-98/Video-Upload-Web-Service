@@ -2,8 +2,8 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
-using API.Models.ApiModels;
 using API.Models.Entities;
+using API.Models.RequestModels;
 using API.Services.VideosService;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Http;
@@ -43,7 +43,7 @@ namespace API.Controllers
         [HttpPost]
         [Authorize]
         [Route("Create")]
-        public async Task<ActionResult<Video>> Create(VideoModel model)
+        public async Task<ActionResult<Video>> Create(VideoRequest model)
         {
             var response = await _service.CreateVideoResponse(User, model);
 

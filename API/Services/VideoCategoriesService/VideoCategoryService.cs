@@ -8,6 +8,7 @@ using System.Linq;
 using System.Threading.Tasks;
 using API.Models.Entities;
 using API.Responses;
+using API.Models.RequestModels;
 
 namespace API.Services.VideoCategoriesService
 {
@@ -33,18 +34,14 @@ namespace API.Services.VideoCategoriesService
             return ServiceResponse<bool>.Ok(new ErrorMessage("Video Category Deleted"));
         }
 
-        public async Task<ServiceResponse<int>> VideoCategoryUpdateResponse(string id, string name)
+        public async Task<ServiceResponse<int>> VideoCategoryUpdateResponse(string id, VideoCategoryRequest model)
         {
             var entity = await Context.VideoCategories.FindAsync(id);
 
             if (entity == null)
                 return ServiceResponse<int>.Error(new ErrorMessage("Resource not exist"));
-            var updatedVideoCategory = new VideoCategory
-            {
-                Id = entity.Id,
-                Name = name
-            };
-            Context.Update(updatedVideoCategory);
+            entity.Name = model.Name;
+            Context.Update(entity);
             var numberOfChanges = await Context.SaveChangesAsync();
 
             return ServiceResponse<int>.Ok(numberOfChanges, new ErrorMessage("Video Category Updated"));

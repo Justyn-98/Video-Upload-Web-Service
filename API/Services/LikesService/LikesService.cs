@@ -1,8 +1,8 @@
 ﻿using API.DataAccessLayer;
+using API.Helpers.UserSignInHelper;
 using API.Models.Entities;
 using API.Responses;
 using API.ServiceResponses;
-using API.Services.UserSignInService;
 using System;
 using System.Linq;
 using System.Security.Claims;
@@ -34,7 +34,7 @@ namespace API.Services.LikesService
 
             if (SignedUserLikedVideo(videoId, userId))
             {
-                return ServiceResponse<bool>.Error(new SingleMessage("User liked this video"));
+                return ServiceResponse<bool>.Error(new ErrorMessage("User liked this video"));
             }
 
             var like = CreateVideoLike(videoId, userId);
@@ -50,7 +50,7 @@ namespace API.Services.LikesService
 
             if (!SignedUserLikedVideo(videoId, userId))
             {
-                return ServiceResponse<bool>.Error(new SingleMessage("User did not liked this video"));
+                return ServiceResponse<bool>.Error(new ErrorMessage("User did not liked this video"));
             }
 
             var like = GetSignedUserLike(userId, videoId);

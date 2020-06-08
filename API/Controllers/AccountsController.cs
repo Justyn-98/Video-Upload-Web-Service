@@ -1,6 +1,7 @@
 ﻿using System.Linq;
 using System.Threading.Tasks;
-using API.Models.ApiModels;
+using API.Helpers.EmailSenderHelper;
+using API.Models.RequestModels;
 using API.Services.AccountService;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Http;
@@ -22,10 +23,9 @@ namespace API.Controllers
         [HttpPost]
         [Route("Register")]
         [AllowAnonymous]
-        public async Task<IActionResult> Register([FromBody] RegisterModel model)
+        public async Task<IActionResult> Register([FromBody] RegisterRequest model)
         {
             var response = await _accountService.RegisterUserResponse(model);
-
             if (!response.Success)
                 return BadRequest(response.Message);
 
@@ -35,7 +35,7 @@ namespace API.Controllers
         [HttpPost]
         [Route("Login")]
         [AllowAnonymous]
-        public async Task<IActionResult> Login([FromBody] LoginModel model)
+        public async Task<IActionResult> Login([FromBody] LoginRequest model)
         {
             var response = await _accountService.AuthenticateUserResponse(model);
 
@@ -43,6 +43,15 @@ namespace API.Controllers
                 return BadRequest(new { error = response.Message });
 
             return Ok(new { token = response.Data });
+        }
+
+        [HttpPut]
+        [Route("EmailConfirmation")]
+        [AllowAnonymous]
+        public async Task<IActionResult> ConfirmEmail()
+        {
+
+            return Ok();
         }
     }
 }

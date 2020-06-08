@@ -1,5 +1,5 @@
-﻿using API.Models.ApiModels;
-using API.Models.Entities;
+﻿using API.Models.Entities;
+using API.Models.RequestModels;
 using API.ServiceResponses;
 using System;
 using System.Collections.Generic;
@@ -12,7 +12,7 @@ namespace API.Services.PlayListsService
     public interface IPlaylistService
     {
         Task<ServiceResponse<List<object>>> GetSignedUserPlaylistsResponse(ClaimsPrincipal context);
-        ServiceResponse<PlayList> CreatePlayListResponse(PlayListModel model, ClaimsPrincipal context);
+        Task<ServiceResponse<PlayList>> CreatePlayListResponse(PlayListRequest model, ClaimsPrincipal context);
         Task<ServiceResponse<bool>> InsertVideoToPlayListResponse(string playlistId, string videoId);
         Task<ServiceResponse<bool>> RemoveVideoFromPlayListResponse(string playlistId, string videoId);
     }

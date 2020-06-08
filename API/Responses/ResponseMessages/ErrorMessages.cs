@@ -5,13 +5,13 @@ using System.Threading.Tasks;
 
 namespace API.Responses.Messages
 {
-    public class Messages : IMessage
+    public class ErrorMessages : IMessage
     {
-        public List<string> Content { get; set; }
+        public List<string> Errors { get; set; }
 
-        public Messages(List<string> content)
+        public ErrorMessages(List<string> errors)
         {
-            Content = content;
+            Errors = errors;
         }
     }
 }

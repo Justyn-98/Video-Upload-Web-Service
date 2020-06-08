@@ -4,11 +4,11 @@ using System.ComponentModel.DataAnnotations;
 using System.Linq;
 using System.Threading.Tasks;
 
-namespace API.Models.ApiModels
+namespace API.Models.RequestModels
 {
-    public class CommentModel
+    public class VideoCategoryRequest
     {
         [Required]
-        public string Content { get; set; }
+        public string Name { get; set; }
     }
 }

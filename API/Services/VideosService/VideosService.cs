@@ -1,6 +1,6 @@
 ﻿using API.DataAccessLayer;
-using API.Models.ApiModels;
 using API.Models.Entities;
+using API.Models.RequestModels;
 using API.Responses;
 using API.ServiceResponses;
 using Microsoft.AspNetCore.Http;
@@ -43,7 +43,7 @@ namespace API.Services.VideosService
             }
             catch (Exception)
             {
-                return ServiceResponse<string>.Error(new SingleMessage("Video upload error"));
+                return ServiceResponse<string>.Error(new ErrorMessage("Video upload error"));
             }
         }
 
@@ -52,23 +52,23 @@ namespace API.Services.VideosService
             var video = await Context.Videos.FindAsync(id);
 
             if (video == null)
-                return ServiceResponse<Stream>.Error(new SingleMessage("Not Found Video"));
+                return ServiceResponse<Stream>.Error(new ErrorMessage("Not Found Video"));
 
             var stream = await _client.GetStreamAsync(video.UrlAddress);
             return ServiceResponse<Stream>.Ok(stream);
         }
 
-        public async Task<ServiceResponse<Video>> CreateVideoResponse(ClaimsPrincipal context, VideoModel model)
+        public async Task<ServiceResponse<Video>> CreateVideoResponse(ClaimsPrincipal context, VideoRequest model)
         {
             var signedUser = await GetSignedUser(context);
 
             if (signedUser == null)
-                return ServiceResponse<Video>.Error(new SingleMessage("The user must be logged in"));
+                return ServiceResponse<Video>.Error(new ErrorMessage("The user must be logged in"));
 
             var choosenVideoCategory = await Context.VideoCategories.FindAsync(model.VideoCategoryId);
 
             if (choosenVideoCategory == null)
-                return ServiceResponse<Video>.Error(new SingleMessage("Not selected Video Category"));
+                return ServiceResponse<Video>.Error(new ErrorMessage("Not selected Video Category"));
 
             var video = CreateVideo(signedUser, model, choosenVideoCategory);
             Context.Videos.Add(video);
@@ -77,7 +77,7 @@ namespace API.Services.VideosService
             return ServiceResponse<Video>.Ok(video);
         }
 
-        private Video CreateVideo(User user, VideoModel model, VideoCategory videoCategory)
+        private Video CreateVideo(User user, VideoRequest model, VideoCategory videoCategory)
         {
             return new Video
             {

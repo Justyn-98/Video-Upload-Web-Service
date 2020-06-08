@@ -1,4 +1,4 @@
-﻿using API.Models.ApiModels;
+﻿using API.Models.RequestModels;
 using API.ServiceResponses;
 using System;
 using System.Collections.Generic;
@@ -9,8 +9,8 @@ namespace API.Services.AccountService
 {
     public interface IAccountService
     {
-        Task<ServiceResponse<bool>> RegisterUserResponse(RegisterModel model);
-        Task<ServiceResponse<string>> AuthenticateUserResponse(LoginModel model);
+        Task<ServiceResponse<bool>> RegisterUserResponse(RegisterRequest model);
+        Task<ServiceResponse<string>> AuthenticateUserResponse(LoginRequest model);
 
 
     }

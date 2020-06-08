@@ -1,9 +1,9 @@
 ﻿using API.DataAccessLayer;
-using API.Models.ApiModels;
+using API.Helpers.UserSignInHelper;
 using API.Models.Entities;
+using API.Models.RequestModels;
 using API.Responses;
 using API.ServiceResponses;
-using API.Services.UserSignInService;
 using Microsoft.EntityFrameworkCore;
 using System;
 using System.Collections.Generic;
@@ -24,7 +24,7 @@ namespace API.Services.CommentsService
         }
 
         public async Task<ServiceResponse<Comment>> CreateCommentResponse(
-            ClaimsPrincipal context, CommentModel model, string videoId)
+            ClaimsPrincipal context, CommentRequest model, string videoId)
         {
             var signedUserId = _helper.GetSignedUserId(context);
 
@@ -48,7 +48,7 @@ namespace API.Services.CommentsService
         {
             var commentsWithUsers = await Context.Comments.Include(u => u.User).ToListAsync();
             var comment =  commentsWithUsers.FirstOrDefault(i => i.Id.Equals(id));
-            return comment == null ? ServiceResponse<object>.Error(new SingleMessage("Comment not exist")) 
+            return comment == null ? ServiceResponse<object>.Error(new ErrorMessage("Comment not exist")) 
                 : ServiceResponse<object>.Ok(PrepareCommentToSend(comment));
         }
 
@@ -58,14 +58,14 @@ namespace API.Services.CommentsService
             var comment = await Context.Comments.Where(c => c.Id.Equals(id))
                 .Where(u => u.UserId.Equals(userId)).FirstOrDefaultAsync();
             if (comment == null)
-              return  ServiceResponse<bool>.Error(new SingleMessage("Signed user have not acces to delete this comment"));
+              return  ServiceResponse<bool>.Error(new ErrorMessage("Signed user have not acces to delete this comment"));
 
             Context.Remove(comment);
             await Context.SaveChangesAsync();
             return ServiceResponse<bool>.Ok();
         }
 
-        private Comment CreateComment(string signedUserId, CommentModel model, string videoId) => new Comment
+        private Comment CreateComment(string signedUserId, CommentRequest model, string videoId) => new Comment
         {
             Id = Guid.NewGuid().ToString(),
             UserId = signedUserId,
