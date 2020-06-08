@@ -4,6 +4,7 @@ using API.Helpers.CommentResponseHelper;
 using API.Helpers.EmailSenderHelper;
 using API.Helpers.SubscriptionResponseHelper;
 using API.Helpers.UserSignInHelper;
+using API.Helpers.VideoResponseHelper;
 using API.Models.Entities;
 using API.Services.AccountManagementService;
 using API.Services.AccountService;
@@ -104,6 +105,7 @@ namespace API
             services.AddScoped<ISubscriptionResponseHelper, SubscriptionResponseHelper>();
             services.AddScoped<ICommentResponseHelper, CommentResponseHelper>();
             services.AddScoped<IEmailSenderHelper, EmailSender>();
+            services.AddScoped<IVideoResponseHelper, VideoReponseHelper>();
 
 
 

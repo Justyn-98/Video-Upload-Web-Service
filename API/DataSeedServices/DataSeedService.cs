@@ -96,6 +96,7 @@ namespace API.DataSeedServices
                 {
                     Id = Guid.NewGuid().ToString(),
                     VideoCategoryId = videoCategories.ElementAt(_random.Next(videoCategories.Count())).Id,
+                    UrlAddress = "https://www.youtube.com/watch?v=qw2LU1yS7aw",
                     UserId = users.ElementAt(_random.Next(users.Count())).Id,
                     Name = _helper._videoName + _helper.GetRandomString(),
                     Description = _helper._descriptionName + _helper.GetRandomString()
