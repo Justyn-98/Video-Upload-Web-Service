@@ -10,6 +10,7 @@ using API.Services.AccountService;
 using API.Services.CommentsService;
 using API.Services.LikesService;
 using API.Services.PlayListsService;
+using API.Services.SearchService;
 using API.Services.SubscriptionsService;
 using API.Services.UserRolesServices;
 using API.Services.UserRolesServices.Interfaces;
@@ -96,6 +97,7 @@ namespace API
             services.AddScoped<ILikesService, LikesService>();
             services.AddScoped<IDataSeedService, DataSeedService>();
             services.AddScoped<ISubscriptionsService, SubscriptionService>();
+            services.AddScoped<ISearchService, SearchService>();
 
 
             services.AddScoped<IUserSignInHelper, UserSignInHelper>();

@@ -2,6 +2,9 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using API.Models.ResponseModels;
+using API.Services.SearchService;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 
 namespace API.Controllers
@@ -10,9 +13,40 @@ namespace API.Controllers
     [ApiController]
     public class SearchController : Controller
     {
-        public IActionResult Index()
+
+        private readonly ISearchService _service;
+
+        public SearchController(ISearchService service)
         {
-            return View();
+            _service = service;
+        }
+
+        //GET localhost:44302/Search?VideoName={videoName}
+        [HttpGet()]
+        [AllowAnonymous]
+        public async Task<IActionResult> SearchByName([FromQuery(Name = "VideoName")]string videoName)
+        {
+            var response = await _service.GetVideosByName(videoName);
+            return Ok(response.Data);
+        }
+
+        //GETlocalhost:44302/Search?VideoName={videoName}
+        [HttpGet()]
+        [AllowAnonymous]
+        public async Task<IActionResult> SearchByVideoCategory([FromQuery(Name = "VideoCategoryId")]string videoCategoryId)
+        {
+            var response = await _service.GetVideosByVideoCategory(videoCategoryId);
+            return Ok(response.Data);
+        }
+
+        //GETlocalhost:44302/Search?VideoName={videoName}
+        [HttpGet()]
+        [AllowAnonymous]
+        public async Task<IActionResult> SearchByPlayList([FromQuery(Name = "PlayListId")]string playListId)
+        {
+            var response = await _service.GetVideosFromPlayList(playListId);
+            return Ok(response.Data);
+
         }
     }
 }
