@@ -15,7 +15,7 @@ namespace API.Controllers
     public class PlaylistsController : Controller
     {
         private readonly IPlaylistService _service;
-      public PlaylistsController(IPlaylistService service)
+        public PlaylistsController(IPlaylistService service)
         {
             _service = service;
         }
@@ -36,7 +36,7 @@ namespace API.Controllers
         // POST: api/PlayLists
         [HttpPost()]
         [Authorize]
-        public async  Task<ActionResult<PlayList>> Create(PlayListRequest model)
+        public async Task<ActionResult<PlayList>> Create(PlayListRequest model)
         {
             var response = await _service.CreatePlayListResponse(model, User);
 
@@ -47,13 +47,13 @@ namespace API.Controllers
         }
 
         //PATCH: api/PlayLists/Insert?PlayListId={playlistId}&VideoId={videoId}
-        [Route("Insert")]
+        [Route("Insertion")]
         [HttpPatch()]
         [Authorize]
         public async Task<ActionResult<PlayList>> Insert(
             [FromQuery(Name = "PlaylistId")]string playlistId, [FromQuery(Name = "VideoId")]string videoId)
         {
-            var response = await _service.InsertVideoToPlayListResponse( playlistId, videoId);
+            var response = await _service.InsertVideoToPlayListResponse(playlistId, videoId);
 
             if (!response.Success)
                 return NotFound(response.Message);
@@ -64,7 +64,7 @@ namespace API.Controllers
         //PATCH: api/PlayLists/RemoveVideo?PlayListId={playlistId}&VideoId={videoId}
         [HttpPatch]
         [Authorize]
-        [Route("RemoveVideo")]
+        [Route("Removal")]
         public async Task<ActionResult<PlayList>> RemoveVideo(
             [FromQuery(Name = "PlaylistId")]string playlistId, [FromQuery(Name = "VideoId")]string videoId)
         {
@@ -74,6 +74,19 @@ namespace API.Controllers
                 return NotFound(response.Message);
 
             return Ok(response.Data);
+        }
+
+        //DELETE: api/PlayLists/{playlistId}
+        [HttpDelete("{id}")]
+        [Authorize]
+        public async Task<ActionResult> DeletePlayList(string plyListId)
+        {
+            var response = await _service.DeletePlayListResponse(playlistId, User);
+
+            if (!response.Success)
+                return Conflict(response.Message);
+
+            return NoContent(response.Data);
         }
     }
 }

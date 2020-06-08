@@ -4,6 +4,7 @@ using System.Linq;
 using System.Threading.Tasks;
 using API.Models.Entities;
 using API.Models.RequestModels;
+using API.Models.ResponseModels;
 using API.Services.VideosService;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Http;
@@ -24,44 +25,28 @@ namespace API.Controllers
             _service = service;
         }
 
-        // POST: api/Videos/Upload
-        [HttpPost]
-        [Authorize]
-        [Route("Upload")]
-        [DisableRequestSizeLimit]
-        public async Task<ActionResult<Video>> Upload([FromForm]IFormFile videoFile)
-        {
-            var response = await _service.UploadVideoResponse(videoFile);
-
-            if (!response.Success)
-                return Conflict(response.Message);
-
-            return CreatedAtAction("Create", new { path = response.Data }, response.Data);
-        }
 
         // POST: api/Videos/Create
         [HttpPost]
         [Authorize]
-        [Route("Create")]
-        public async Task<ActionResult<Video>> Create(VideoRequest model)
+        public async Task<ActionResult<VideoResponse>> Create(VideoRequest model)
         {
             var response = await _service.CreateVideoResponse(User, model);
 
             if (!response.Success)
                 return Conflict(response.Message);
 
-            return CreatedAtAction("GetById", new { id = response.Data.Id },response.Data.Id);
+            return CreatedAtAction("GetById", new { id = response.Data.Id },response.Data);
         }
 
         // GET: api/Videos/id
         [HttpGet("{id}")]
         [AllowAnonymous]
-        [ProducesResponseType(StatusCodes.Status200OK)]
-        public async Task<FileStreamResult> GetById(string id)
+        public async Task<ActionResult<VideoResponse>> GetById(string id)
         {
-            var response = await _service.GetVideoSteramResponse(id);
+            var response = await _service.GetVideoByIdResponse(id);
 
-            return  new FileStreamResult(response.Data, "video/mp4");
+            return Ok(response.Data);
         }
     }
 }

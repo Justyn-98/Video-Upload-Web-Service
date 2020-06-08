@@ -10,5 +10,6 @@ namespace API.Helpers.VideoResponseHelper
     public interface IVideoResponseHelper
     {
         List<VideoResponse> PrepareVideosToSend(List<Video> videos);
+        VideoResponse PrepareVideoToSend(Video video);
     }
 }

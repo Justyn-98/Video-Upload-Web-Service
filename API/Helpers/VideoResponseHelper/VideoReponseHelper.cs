@@ -25,5 +25,15 @@ namespace API.Helpers.VideoResponseHelper
             }
             return videosToSend;
         }
+
+        public VideoResponse PrepareVideoToSend(Video video) => new VideoResponse
+        {
+            Id = video.Id,
+            Name = video.Name,
+            AuthorName = video.User.UserName,
+            UrlAddress = video.UrlAddress
+        };
+
+
     }
 }

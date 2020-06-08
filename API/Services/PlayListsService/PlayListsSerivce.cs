@@ -36,6 +36,20 @@ namespace API.Services.PlayListsService
             return ServiceResponse<PlayList>.Ok(playlist);
         }
 
+        public async Task<ServiceResponse<bool>> DeletePlayListResponse(object playlistId, ClaimsPrincipal user)
+        {
+            var userId = _helper.GetSignedUserId(user);
+            var playList = await Context.PlayLists.FindAsync(playlistId);
+            if (playList == null)
+                return ServiceResponse<bool>.Error(new ErrorMessage("PlayList Not exist"));
+            if (!playList.UserId.Equals(userId))
+                return ServiceResponse<bool>.Error(new ErrorMessage("User not have access"));
+
+            Context.Remove(playList);
+            await Context.SaveChangesAsync();
+            return ServiceResponse<bool>.Ok();
+        }
+
         public async Task<ServiceResponse<List<object>>> GetSignedUserPlaylistsResponse(ClaimsPrincipal claimsPrincipal)
         {
             var userId = _helper.GetSignedUserId(claimsPrincipal);
