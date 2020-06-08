@@ -24,7 +24,7 @@ namespace API.Controllers
         //GET:localhost:44302/Subscriptions
         [HttpGet]
         [Authorize]
-        public async Task<ActionResult<SubscriptionResponse>> GetSignedUserPlayLists()
+        public async Task<ActionResult<SubscriptionResponse>> GetSignedUserSubscriptions()
         {
             var response = await _service.GetUserSubscriptionsResponse(User);
 
@@ -34,20 +34,31 @@ namespace API.Controllers
             return Ok(response.Data);
         }
 
-        //POST:localhost:44302/SubscriptionsChanelAuthorId={chanelAuthorId}
-        [HttpGet]
+        //POST:localhost:44302/Subscriptions?ChanelAuthorId={chanelAuthorId}
+        [HttpPost()]
         [Authorize]
-        public async Task<ActionResult<SubscriptionResponse>> Subscribe()
+        public async Task<ActionResult<SubscriptionResponse>> Subscribe([FromQuery(Name = "ChanelAuthorId")]string subId)
         {
-            return Ok();
+            var response = await _service.CreateSubscriptionResponse(subId,User);
+
+            if (!response.Success)
+                return Conflict(response.Message);
+
+            return Ok(response.Data);
         }
+
         //DELETE:localhost:44302/Subscriptions?ChanelAuthorId={chanelAuthorId}
-        [HttpGet]
+        [HttpDelete()]
         [Authorize]
-        public async Task<ActionResult<SubscriptionResponse>> Unsubscribe()
+        public async Task<ActionResult<SubscriptionResponse>> Unsubscribe([FromQuery(Name = "ChanelAuthorId")]string subId)
         {
 
-            return Ok();
+            var response = await _service.DeleteSubscriptionResponse(subId, User);
+
+            if (!response.Success)
+                return NotFound(response.Message);
+
+            return Ok(response.Data);
         }
     }
 }

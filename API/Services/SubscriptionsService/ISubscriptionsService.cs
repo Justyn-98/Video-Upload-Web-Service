@@ -11,5 +11,8 @@ namespace API.Services.SubscriptionsService
     public interface ISubscriptionsService
     {
         Task<ServiceResponse<List<SubscriptionResponse>>> GetUserSubscriptionsResponse(ClaimsPrincipal claims);
+        Task<ServiceResponse<bool>> CreateSubscriptionResponse(string id, ClaimsPrincipal claims);
+        Task<ServiceResponse<bool>> DeleteSubscriptionResponse(string id, ClaimsPrincipal claims);
+
     }
 }
