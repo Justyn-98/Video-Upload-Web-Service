@@ -8,9 +8,7 @@ namespace API.DataAccessLayer.Configurations
     public class VideoCategoryConfiguration : IEntityTypeConfiguration<VideoCategory>
     {
         public void Configure(EntityTypeBuilder<VideoCategory> builder)
-        {
-            builder.HasAlternateKey(n => n.Name);
-            
+        {            
             builder.Property(n => n.Name)
                 .IsRequired()
                 .HasMaxLength(50)

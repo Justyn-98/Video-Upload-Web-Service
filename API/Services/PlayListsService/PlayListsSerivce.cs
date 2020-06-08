@@ -85,7 +85,7 @@ namespace API.Services.PlayListsService
                 preparedPlayLists.Add(new
                 {
                     plyslist.Id,
-
+                    plyslist.Name,
                     Author = plyslist.User.Email,
                 });
             }
