@@ -79,14 +79,14 @@ namespace API.Controllers
         //DELETE: api/PlayLists/{playlistId}
         [HttpDelete("{id}")]
         [Authorize]
-        public async Task<ActionResult> DeletePlayList(string plyListId)
+        public async Task<ActionResult> DeletePlayList(string playListId)
         {
-            var response = await _service.DeletePlayListResponse(playlistId, User);
+            var response = await _service.DeletePlayListResponse(playListId, User);
 
             if (!response.Success)
                 return Conflict(response.Message);
 
-            return NoContent(response.Data);
+            return NoContent();
         }
     }
 }
