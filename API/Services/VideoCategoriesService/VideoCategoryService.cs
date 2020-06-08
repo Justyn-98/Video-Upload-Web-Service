@@ -25,32 +25,35 @@ namespace API.Services.VideoCategoriesService
             var entity = await Context.VideoCategories.FindAsync(id);
 
             if (entity == null)
-                return ServiceResponse<bool>.Error(false, new SingleMessage("Not Found Video Category"));
+                return ServiceResponse<bool>.Error(false, new ErrorMessage("Not Found Video Category"));
 
             Context.VideoCategories.Remove(entity);
             await Context.SaveChangesAsync();
 
-            return ServiceResponse<bool>.Ok(new SingleMessage("Video Category Deleted"));
+            return ServiceResponse<bool>.Ok(new ErrorMessage("Video Category Deleted"));
         }
 
-        public async Task<ServiceResponse<int>> VideoCategoryUpdateResponse(string id, VideoCategory videoCategory)
+        public async Task<ServiceResponse<int>> VideoCategoryUpdateResponse(string id, string name)
         {
             var entity = await Context.VideoCategories.FindAsync(id);
 
             if (entity == null)
-                return ServiceResponse<int>.Error(new SingleMessage("Resource not exist"));
-
-            videoCategory.Id = entity.Id;
-            Context.Update(videoCategory);
+                return ServiceResponse<int>.Error(new ErrorMessage("Resource not exist"));
+            var updatedVideoCategory = new VideoCategory
+            {
+                Id = entity.Id,
+                Name = name
+            };
+            Context.Update(updatedVideoCategory);
             var numberOfChanges = await Context.SaveChangesAsync();
 
-            return ServiceResponse<int>.Ok(numberOfChanges, new SingleMessage("Video Category Updated"));
+            return ServiceResponse<int>.Ok(numberOfChanges, new ErrorMessage("Video Category Updated"));
         }
 
         public async Task<ServiceResponse<VideoCategory>> VideoCategoryFindResponse(string id)
         {
             var videoCategory = await Context.VideoCategories.FindAsync(id);
-            return videoCategory == null ? ServiceResponse<VideoCategory>.Error(new SingleMessage("Not Found Video Category"))
+            return videoCategory == null ? ServiceResponse<VideoCategory>.Error(new ErrorMessage("Not Found Video Category"))
                 : ServiceResponse<VideoCategory>.Ok(videoCategory);
         }
 

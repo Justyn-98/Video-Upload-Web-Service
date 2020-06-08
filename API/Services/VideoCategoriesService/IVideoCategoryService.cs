@@ -13,7 +13,7 @@ namespace API.Services.VideoCategoriesService
         Task<ActionResult<List<VideoCategory>>> GetVideoCategoriesList();
         Task<ServiceResponse<VideoCategory>> VideoCategoryFindResponse(string id);
         Task<ServiceResponse<bool>> DeleteVideoCategory(string id);
-        Task<ServiceResponse<int>> VideoCategoryUpdateResponse(string id, VideoCategory videoCategory);
+        Task<ServiceResponse<int>> VideoCategoryUpdateResponse(string id, string name);
         Task<ServiceResponse<VideoCategory>> CreateVideoCategoryResponse(VideoCategory videoCategory);
 
     }

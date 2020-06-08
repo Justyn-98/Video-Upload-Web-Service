@@ -41,9 +41,9 @@ namespace API.Controllers
 
         // PUT: api/VideoCategories/5
         [HttpPut("{id}")]
-        public async Task<ActionResult> Edit(string id, VideoCategory videoCategory)
+        public async Task<ActionResult> Edit(string id, string  name)
         {
-            var response = await _service.VideoCategoryUpdateResponse(id, videoCategory);
+            var response = await _service.VideoCategoryUpdateResponse(id, name);
 
             if (!response.Success)
                 return NotFound(response.Message);
