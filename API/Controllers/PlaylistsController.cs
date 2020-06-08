@@ -77,7 +77,7 @@ namespace API.Controllers
         }
 
         //DELETE: api/PlayLists/{playlistId}
-        [HttpDelete("{id}")]
+        [HttpDelete("{playListId}")]
         [Authorize]
         public async Task<ActionResult> DeletePlayList(string playListId)
         {

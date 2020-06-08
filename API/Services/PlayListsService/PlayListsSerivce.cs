@@ -42,9 +42,7 @@ namespace API.Services.PlayListsService
             var playList = await Context.PlayLists.FindAsync(playlistId);
             if (playList == null)
                 return ServiceResponse<bool>.Error(new ErrorMessage("PlayList Not exist"));
-            if (!playList.UserId.Equals(userId))
-                return ServiceResponse<bool>.Error(new ErrorMessage("User not have access"));
-
+           
             Context.Remove(playList);
             await Context.SaveChangesAsync();
             return ServiceResponse<bool>.Ok();
