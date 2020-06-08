@@ -41,7 +41,7 @@ namespace API.Controllers
 
         // PUT: api/VideoCategories/5
         [HttpPut("{id}")]
-        public async Task<ActionResult> Edit(string id, string  name)
+        public async Task<ActionResult> Edit(string id,[FromBody] string  name)
         {
             var response = await _service.VideoCategoryUpdateResponse(id, name);
 
