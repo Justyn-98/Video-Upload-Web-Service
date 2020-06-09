@@ -20,9 +20,10 @@ namespace API.Services.PlayListsService
         private readonly IUserSignInHelper _signInHelper;
         private readonly IPlayListResponseHelper _repsonseHelpser;
 
-        public PlayListsSerivce(ApplicationDbContext context, IUserSignInHelper helper) : base(context)
+        public PlayListsSerivce(ApplicationDbContext context, IUserSignInHelper helper, IPlayListResponseHelper responseHelper) : base(context)
         {
             _signInHelper = helper;
+            _repsonseHelpser = responseHelper;
         }
 
         public async Task<ServiceResponse<PlayList>> CreatePlayListResponse(PlayListRequest model, ClaimsPrincipal claimsPrincipal)

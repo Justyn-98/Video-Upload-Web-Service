@@ -7,7 +7,7 @@ using System.Threading.Tasks;
 
 namespace API.Helpers.PlayListResponseHelper
 {
-    interface IPlayListResponseHelper
+    public interface IPlayListResponseHelper
     {
         public List<PlayListResponse> PreparePlayListsToSend(List<PlayList> signedUserPlaylists);
 

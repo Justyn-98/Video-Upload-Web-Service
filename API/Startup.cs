@@ -10,6 +10,7 @@ using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
+using Microsoft.Extensions.Logging;
 using System;
 
 namespace API
@@ -55,8 +56,9 @@ namespace API
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
-        public void Configure(IApplicationBuilder app, IWebHostEnvironment env, IServiceProvider serviceProvider)
+        public void Configure(IApplicationBuilder app, IWebHostEnvironment env, IServiceProvider serviceProvider, ILoggerFactory loggerFactory)
         {
+
             app.UseCors("MyPolicy");
 
             if (env.IsDevelopment())
@@ -79,7 +81,7 @@ namespace API
                 endpoints.MapControllers();
             });
 
-            
+
             var roleService = serviceProvider.GetRequiredService<IRolesCreateService>();
             roleService.AddRoles();
 
