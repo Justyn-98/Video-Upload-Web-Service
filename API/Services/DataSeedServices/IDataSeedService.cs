@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 
-namespace API.DataSeedServices
+namespace API.Services.DataSeedServices
 {
     public interface IDataSeedService
     {

@@ -23,7 +23,7 @@ namespace API.Controllers
         // GET: api/PlayLists
         [HttpGet]
         [Authorize]
-        public async Task<ActionResult<PlayList>> GetSignedUserPlayLists()
+        public async Task<ActionResult> GetSignedUserPlayLists()
         {
             var response = await _service.GetSignedUserPlaylistsResponse(User);
 

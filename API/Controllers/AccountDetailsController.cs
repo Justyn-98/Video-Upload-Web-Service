@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
-using API.Services.AccountManagementService;
+using API.Services.AccountDetailsService;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
@@ -11,19 +11,17 @@ namespace API.Controllers
 {
     [Route("api/[controller]")]
     [ApiController]
-    public class AccountManagementController : Controller
+    public class AccountDetailsController : Controller
     {
 
         private readonly IAccountDetailsService _service;
-        public AccountManagementController(IAccountDetailsService service)
+        public AccountDetailsController(IAccountDetailsService service)
         {
             _service = service;
         }
 
         [HttpGet]
         [Authorize]
-        [ProducesResponseType(StatusCodes.Status200OK)]
-        [ProducesResponseType(StatusCodes.Status400BadRequest)]
         public async Task<IActionResult> GetSignedUserName()
         {
             var response = await _service.GetSignedUserDetailsResponse(User);

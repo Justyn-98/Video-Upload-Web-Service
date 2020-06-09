@@ -8,21 +8,23 @@ namespace API.Helpers.EmailSenderHelper
     public class EmailSender : IEmailSenderHelper
     {
 
-        public async Task SendRegisterConfirmationEmail(string email, string token)
+
+        public async Task SendRegistrationSuccessfulInfo(string emailAddress)
         {
-            var message = PrepareConfirmRegistrationMessage(email, token);
+            var message = PrepareSuccessfulRegistationMessage(emailAddress);
             await SendMessage(message);
         }
 
-        private MimeMessage PrepareConfirmRegistrationMessage(string email, string token)
+
+        private MimeMessage PrepareSuccessfulRegistationMessage(string email)
         {
             var message = new MimeMessage();
-            message.From.Add(new MailboxAddress("Staff", ""));
+            message.From.Add(new MailboxAddress("Staff", "videoapp11121@gmail.com"));
             message.To.Add(new MailboxAddress("New user", email));
-            message.Subject = "Confirm your account";
+            message.Subject = "Successful Registration";
             message.Body = new TextPart
             {
-                Text = "Paste this url in new widnow to confirm your registratnion: " + token
+                Text = "Your account has been created!!!"
             };
             return message;
         }
@@ -34,7 +36,7 @@ namespace API.Helpers.EmailSenderHelper
                 smtp.ServerCertificateValidationCallback = (s, c, h, e) => true;
 
                 await smtp.ConnectAsync("smtp.gmail.com", 587, SecureSocketOptions.StartTls);
-                await smtp.AuthenticateAsync("", "");
+                await smtp.AuthenticateAsync("videoapp11121@gmail.com", "VideoApp198");
                 await smtp.SendAsync(message);
                 await smtp.DisconnectAsync(true);
             }

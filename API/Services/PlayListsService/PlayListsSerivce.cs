@@ -1,7 +1,9 @@
 ﻿using API.DataAccessLayer;
+using API.Helpers.PlayListResponseHelper;
 using API.Helpers.UserSignInHelper;
 using API.Models.Entities;
 using API.Models.RequestModels;
+using API.Models.ResponseModels;
 using API.Responses;
 using API.ServiceResponses;
 using Microsoft.EntityFrameworkCore;
@@ -15,15 +17,17 @@ namespace API.Services.PlayListsService
 {
     public class PlayListsSerivce : DatabaseAccessService, IPlaylistService
     {
-        private readonly IUserSignInHelper _helper;
+        private readonly IUserSignInHelper _signInHelper;
+        private readonly IPlayListResponseHelper _repsonseHelpser;
+
         public PlayListsSerivce(ApplicationDbContext context, IUserSignInHelper helper) : base(context)
         {
-            _helper = helper;
+            _signInHelper = helper;
         }
 
         public async Task<ServiceResponse<PlayList>> CreatePlayListResponse(PlayListRequest model, ClaimsPrincipal claimsPrincipal)
         {
-            var userId = _helper.GetSignedUserId(claimsPrincipal);
+            var userId = _signInHelper.GetSignedUserId(claimsPrincipal);
 
             var playlist = new PlayList
             {
@@ -38,7 +42,7 @@ namespace API.Services.PlayListsService
 
         public async Task<ServiceResponse<bool>> DeletePlayListResponse(object playlistId, ClaimsPrincipal user)
         {
-            var userId = _helper.GetSignedUserId(user);
+            var userId = _signInHelper.GetSignedUserId(user);
             var playList = await Context.PlayLists.FindAsync(playlistId);
             if (playList == null)
                 return ServiceResponse<bool>.Error(new ErrorMessage("PlayList Not exist"));
@@ -48,14 +52,15 @@ namespace API.Services.PlayListsService
             return ServiceResponse<bool>.Ok();
         }
 
-        public async Task<ServiceResponse<List<object>>> GetSignedUserPlaylistsResponse(ClaimsPrincipal claimsPrincipal)
+        public async Task<ServiceResponse<List<PlayListResponse>>> GetSignedUserPlaylistsResponse(ClaimsPrincipal claimsPrincipal)
         {
-            var userId = _helper.GetSignedUserId(claimsPrincipal);
+            var userId = _signInHelper.GetSignedUserId(claimsPrincipal);
 
             var usersWithPlaylists = await Context.Users.Include(p => p.PlayLists).ToListAsync();
             var signedUserPlaylists = usersWithPlaylists.Find(i => i.Id.Equals(userId)).PlayLists.ToList();
+            var playListToSend = _repsonseHelpser.PreparePlayListsToSend(signedUserPlaylists);
 
-            return ServiceResponse<List<object>>.Ok(PreparePlayListsToSend(signedUserPlaylists));
+            return ServiceResponse<List<PlayListResponse>>.Ok(playListToSend);
         }
 
         public async Task<ServiceResponse<bool>> InsertVideoToPlayListResponse(string playlistId, string videoId)
@@ -89,19 +94,5 @@ namespace API.Services.PlayListsService
             return ServiceResponse<bool>.Ok();
         }
 
-        private List<object> PreparePlayListsToSend(List<PlayList> signedUserPlaylists)
-        {
-            var preparedPlayLists = new List<object>();
-            foreach (var plyslist in signedUserPlaylists)
-            {
-                preparedPlayLists.Add(new
-                {
-                    plyslist.Id,
-                    plyslist.Name,
-                    Author = plyslist.User.Email,
-                });
-            }
-            return preparedPlayLists;
-        }
     }
 }

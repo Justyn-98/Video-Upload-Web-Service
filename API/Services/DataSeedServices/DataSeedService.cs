@@ -1,13 +1,12 @@
 ﻿using API.DataAccessLayer;
+using API.Helpers.SeederHelper;
 using API.Models.Entities;
-using API.Services;
-using Microsoft.EntityFrameworkCore;
 using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 
-namespace API.DataSeedServices
+namespace API.Services.DataSeedServices
 {
     public class DataSeedService : DatabaseAccessService, IDataSeedService
     {
@@ -24,7 +23,7 @@ namespace API.DataSeedServices
             const int range = 20;
 
             var users = await GenerateUsers(range);
-            var videoCategories =await  GenerateVideoCategories(5);
+            var videoCategories = await GenerateVideoCategories(5);
             var playLists = await GeneratePlayLists(5);
             var videos = await GenerateVideos(users, videoCategories, 30);
             await GenereateVideosOnPlayLists(playLists, videos);
@@ -49,7 +48,7 @@ namespace API.DataSeedServices
             var videosOnPlayLists = new List<VideoOnPlayList>();
             foreach (var playlist in playLists)
             {
-                foreach (var video in videos) 
+                foreach (var video in videos)
                 {
                     var videoOnPlayList = new VideoOnPlayList()
                     {
@@ -58,13 +57,13 @@ namespace API.DataSeedServices
                     };
                     videosOnPlayLists.Add(videoOnPlayList);
                     Context.Add(videoOnPlayList);
-            }
+                }
             }
             await Context.SaveChangesAsync();
             return videosOnPlayLists;
         }
 
-            private async Task<List<VideoLike>> GenerateLikes(List<User> users, List<Video> videos)
+        private async Task<List<VideoLike>> GenerateLikes(List<User> users, List<Video> videos)
         {
             var likes = new List<VideoLike>();
 

@@ -20,7 +20,7 @@ namespace API.Helpers.VideoResponseHelper
                     Name = video.Name,
                     AuthorName = video.User.UserName,
                     UrlAddress = video.UrlAddress,
-                    PhotoUrl = video.PhotoUrl
+                    DateOfCreate = video.DateOfCreate
                 });
             }
             return videosToSend;
@@ -30,8 +30,9 @@ namespace API.Helpers.VideoResponseHelper
         {
             Id = video.Id,
             Name = video.Name,
+            
             AuthorName = video.User.UserName,
-            UrlAddress = video.UrlAddress
+            DateOfCreate = video.DateOfCreate
         };
 
 

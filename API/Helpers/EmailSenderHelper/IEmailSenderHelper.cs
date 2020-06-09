@@ -7,7 +7,7 @@ namespace API.Helpers.EmailSenderHelper
 {
     public interface IEmailSenderHelper
     {
-        Task SendRegisterConfirmationEmail(string email, string token);
+        Task SendRegistrationSuccessfulInfo(string emailAddress);
 
     }
 }

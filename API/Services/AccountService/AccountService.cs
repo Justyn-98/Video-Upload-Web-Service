@@ -1,18 +1,14 @@
 ﻿using API.DataAccessLayer;
+using API.Helpers.EmailSenderHelper;
+using API.Helpers.JWTHelper;
 using API.Models.Entities;
 using API.Models.RequestModels;
 using API.Responses;
 using API.Responses.Messages;
+using API.Responses.ResponseMessages;
 using API.ServiceResponses;
 using Microsoft.AspNetCore.Identity;
-using Microsoft.Extensions.Configuration;
-using Microsoft.IdentityModel.Tokens;
-using System;
 using System.Collections.Generic;
-using System.IdentityModel.Tokens.Jwt;
-using System.Linq;
-using System.Security.Claims;
-using System.Text;
 using System.Threading.Tasks;
 
 namespace API.Services.AccountService
@@ -20,36 +16,46 @@ namespace API.Services.AccountService
     public class AccountService : DatabaseAccessService, IAccountService
     {
         private readonly UserManager<User> _userManager;
-        private IConfiguration _config;
+        private readonly IEmailSenderHelper _emailSenderHelper;
+        private readonly IJWTHelper _jwtHelper;
 
-        public AccountService(ApplicationDbContext context,
-            UserManager<User> userManager, IConfiguration config) : base(context)
+        private ErrorMessage loginErrorMessage = new ErrorMessage("Email address or password is incorrect");
+
+
+        public AccountService(ApplicationDbContext context, UserManager<User> userManager,
+            IEmailSenderHelper emailSenderHelper, IJWTHelper jwtHelper) : base(context)
         {
             _userManager = userManager;
-            _config = config;
+            _emailSenderHelper = emailSenderHelper;
+            _jwtHelper = jwtHelper;
         }
 
         public async Task<ServiceResponse<string>> AuthenticateUserResponse(LoginRequest model)
         {
-            var errorMessage = new ErrorMessage("Email address or password is incorrect");
-
             var user = await _userManager.FindByEmailAsync(model.EmailAddress);
 
             if (user == null)
-                return ServiceResponse<string>.Error(errorMessage);
+                return ServiceResponse<string>.Error(loginErrorMessage);
 
             var passwordIsCorrect = await _userManager.CheckPasswordAsync(user, model.Password);
 
-            return passwordIsCorrect ? ServiceResponse<string>.Ok(GenerateJSONWebToken(user)) :
-                ServiceResponse<string>.Error(errorMessage);
+            return passwordIsCorrect ? ServiceResponse<string>.Ok(_jwtHelper.GenerateJSONWebToken(user)) :
+                ServiceResponse<string>.Error(loginErrorMessage);
         }
 
         public async Task<ServiceResponse<bool>> RegisterUserResponse(RegisterRequest model)
         {
             var user = new User { UserName = model.EmailAddress, Email = model.EmailAddress };
             var result = await _userManager.CreateAsync(user, model.Password);
-            return result.Succeeded ? ServiceResponse<bool>.Ok(new ErrorMessage("Successful registration"))
-                : ServiceResponse<bool>.Error(CreateErrorMessages(result));
+            if (result.Succeeded)
+            {
+                await _emailSenderHelper.SendRegistrationSuccessfulInfo(user.Email);
+                return ServiceResponse<bool>.Ok(new SuccessMessage("Successful registration"));
+            }
+            else
+            {
+                return ServiceResponse<bool>.Error(CreateErrorMessages(result));
+            }
         }
 
         private ErrorMessages CreateErrorMessages(IdentityResult result)
@@ -62,29 +68,6 @@ namespace API.Services.AccountService
             return new ErrorMessages(errorMessages);
         }
 
-        private string GenerateJSONWebToken(User user)
-        {
-            var securityKey = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(_config["JwtToken:SecretKey"]));
 
-            var tokenDescriptor = new SecurityTokenDescriptor
-            {
-                Subject = new ClaimsIdentity(new[] {
-                    new Claim("Id", user.Id),
-                    new Claim(JwtRegisteredClaimNames.Email, user.Email)
-                }),
-                SigningCredentials = new SigningCredentials(securityKey, SecurityAlgorithms.HmacSha256Signature),
-                Expires = DateTime.Now.AddDays(1)
-
-            };
-
-            var tokenHandler = new JwtSecurityTokenHandler();
-            var token = tokenHandler.CreateToken(tokenDescriptor);
-            return tokenHandler.WriteToken(token);
-        }
-
-        private object SecurityTokenDescriptor()
-        {
-            throw new NotImplementedException();
-        }
     }
 }

@@ -5,12 +5,10 @@ using System.Threading.Tasks;
 
 namespace API.Models.ResponseModels
 {
-    public class VideoResponse
+    public class PlayListResponse
     {
         public string Id { get; set; }
-        public string AuthorName { get; set; }
+        public string PlayListAuthor { get; set; }
         public string Name { get; set; }
-        public string UrlAddress { get; set; }
-        public DateTime DateOfCreate { get; set; }
     }
 }

@@ -49,7 +49,6 @@ namespace API.Controllers
         {
             var response = await _service.GetVideosFromPlayList(playListId);
             return Ok(response.Data);
-
         }
     }
 }

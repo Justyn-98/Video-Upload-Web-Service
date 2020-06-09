@@ -45,13 +45,5 @@ namespace API.Controllers
             return Ok(new { token = response.Data });
         }
 
-        [HttpPut]
-        [Route("EmailConfirmation")]
-        [AllowAnonymous]
-        public async Task<IActionResult> ConfirmEmail()
-        {
-
-            return Ok();
-        }
     }
 }
