@@ -19,7 +19,7 @@ namespace API.Helpers.EmailSenderHelper
         private MimeMessage PrepareSuccessfulRegistationMessage(string email)
         {
             var message = new MimeMessage();
-            message.From.Add(new MailboxAddress("Staff", "videoapp11121@gmail.com"));
+            message.From.Add(new MailboxAddress("Video App Staff", "videoapp11121@gmail.com"));
             message.To.Add(new MailboxAddress("New user", email));
             message.Subject = "Successful Registration";
             message.Body = new TextPart

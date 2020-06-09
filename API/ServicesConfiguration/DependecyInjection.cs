@@ -1,5 +1,6 @@
 ﻿using API.Helpers.CommentResponseHelper;
 using API.Helpers.EmailSenderHelper;
+using API.Helpers.JWTHelper;
 using API.Helpers.PlayListResponseHelper;
 using API.Helpers.SubscriptionResponseHelper;
 using API.Helpers.UserSignInHelper;
@@ -49,6 +50,7 @@ namespace API.ServicesConfiguration
             services.AddScoped<IEmailSenderHelper, EmailSender>();
             services.AddScoped<IVideoResponseHelper, VideoReponseHelper>();
             services.AddScoped<IPlayListResponseHelper, PlayListReponseHelper>();
+            services.AddScoped<IJWTHelper, JWTHelper>();
 
             return services;
         }
