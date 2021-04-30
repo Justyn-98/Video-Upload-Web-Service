@@ -9038,11 +9038,11 @@
   "project": {
     "version": "1.0.0",
     "restore": {
-      "projectUniqueName": "C:\\Users\\Justyn\\source\\repos\\pipsi-semestr-4-projekt\\API\\API.csproj",
+      "projectUniqueName": "D:\\repos\\pipsi-semestr-4-projekt\\API\\API.csproj",
       "projectName": "API",
-      "projectPath": "C:\\Users\\Justyn\\source\\repos\\pipsi-semestr-4-projekt\\API\\API.csproj",
+      "projectPath": "D:\\repos\\pipsi-semestr-4-projekt\\API\\API.csproj",
       "packagesPath": "C:\\Users\\Justyn\\.nuget\\packages\\",
-      "outputPath": "C:\\Users\\Justyn\\source\\repos\\pipsi-semestr-4-projekt\\API\\obj\\",
+      "outputPath": "D:\\repos\\pipsi-semestr-4-projekt\\API\\obj\\",
       "projectStyle": "PackageReference",
       "configFilePaths": [
         "C:\\Users\\Justyn\\AppData\\Roaming\\NuGet\\NuGet.Config",
@@ -9122,7 +9122,7 @@
             "privateAssets": "all"
           }
         },
-        "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\3.1.200\\RuntimeIdentifierGraph.json"
+        "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\3.1.301\\RuntimeIdentifierGraph.json"
       }
     }
   }

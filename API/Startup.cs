@@ -89,8 +89,8 @@ namespace API
             defaultAdminService.CreateTestUser();
 
             var dataSeedService =serviceProvider.GetRequiredService<IDataSeedService>();
-            //var result = dataSeedService.SeedData();
-            //result.Wait();
+            var result = dataSeedService.SeedData();
+            result.Wait();
 
         }
     }

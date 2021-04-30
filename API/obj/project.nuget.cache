@@ -1,8 +1,8 @@
 {
   "version": 2,
-  "dgSpecHash": "OQm1Uj3PLzP7C0Ub77vrasVDXVQkUzDTWa4P3I2eCQq+XDI3CsL8l2RUxOsk7BfZp/Is/bOQ9klMAT3fHMfO+Q==",
+  "dgSpecHash": "VoSzsFJkeZBogUChO1t2lYpPulbs3DeFhgbLzCET5qxOyDf6KXfJrEBWhQj/qm77HJQz9mcIAtjHH5EuS0JTMg==",
   "success": true,
-  "projectFilePath": "C:\\Users\\Justyn\\source\\repos\\pipsi-semestr-4-projekt\\API\\API.csproj",
+  "projectFilePath": "D:\\repos\\pipsi-semestr-4-projekt\\API\\API.csproj",
   "expectedPackageFiles": [
     "C:\\Users\\Justyn\\.nuget\\packages\\mailkit\\2.7.0\\mailkit.2.7.0.nupkg.sha512",
     "C:\\Users\\Justyn\\.nuget\\packages\\microsoft.aspnetcore.authentication.jwtbearer\\3.1.4\\microsoft.aspnetcore.authentication.jwtbearer.3.1.4.nupkg.sha512",
